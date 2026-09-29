@@ -1,0 +1,2 @@
+# Python 표준 라이브러리 기반으로 외부 의존성 없음 (No external dependencies required)
+# Python 3.10+ 권장

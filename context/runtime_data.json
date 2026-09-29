@@ -1,0 +1,177 @@
+{
+  "apps": [
+    {
+      "id": "choco",
+      "name_ko": "초코",
+      "name_en": "Choco",
+      "category": "라이프스타일",
+      "description": "가입 시 웰컴 초콜릿 포인트 3,000P 지급",
+      "app_url": "https://choco.example.com",
+      "icon_color": "#8B5A2B"
+    },
+    {
+      "id": "apple",
+      "name_ko": "애플",
+      "name_en": "Apple",
+      "category": "쇼핑/디지털",
+      "description": "학생 교육 할인 및 기기 구매 시 액세서리 쿠폰 제공",
+      "app_url": "https://www.apple.com/kr",
+      "icon_color": "#1C1C1E"
+    },
+    {
+      "id": "toss",
+      "name_ko": "토스",
+      "name_en": "Toss",
+      "category": "금융/핀테크",
+      "description": "친구 초대 시 둘 다 최대 5,000원 랜덤 포인트 증정",
+      "app_url": "https://toss.im",
+      "icon_color": "#0064FF"
+    },
+    {
+      "id": "coupang",
+      "name_ko": "쿠팡",
+      "name_en": "Coupang",
+      "category": "쇼핑/이커머스",
+      "description": "로켓와우 첫 달 무료 체험 및 5천원 캐시백",
+      "app_url": "https://www.coupang.com",
+      "icon_color": "#E30613"
+    },
+    {
+      "id": "kream",
+      "name_ko": "크림",
+      "name_en": "KREAM",
+      "category": "패션/한정판",
+      "description": "회원가입 시 2,000 포인트 즉시 적립",
+      "app_url": "https://kream.co.kr",
+      "icon_color": "#222222"
+    },
+    {
+      "id": "kurly",
+      "name_ko": "컬리",
+      "name_en": "Kurly",
+      "category": "신선식품/배송",
+      "description": "친구 초대 시 첫 주문 완료 후 적립금 5,000원",
+      "app_url": "https://www.kurly.com",
+      "icon_color": "#5F0080"
+    },
+    {
+      "id": "temu",
+      "name_ko": "테무",
+      "name_en": "Temu",
+      "category": "쇼핑/해외직구",
+      "description": "신규 앱 설치 시 10만원 상당 쿠폰팩 지급",
+      "app_url": "https://www.temu.com",
+      "icon_color": "#FB7701"
+    },
+    {
+      "id": "kbank",
+      "name_ko": "케이뱅크",
+      "name_en": "K-Bank",
+      "category": "금융/인터넷은행",
+      "description": "행운상자 열고 최대 10만원 현금 당첨 기회",
+      "app_url": "https://www.kbanknow.com",
+      "icon_color": "#00186B"
+    },
+    {
+      "id": "coinone",
+      "name_ko": "코인원",
+      "name_en": "Coinone",
+      "category": "가상자산",
+      "description": "거래 수수료 평생 20% 페이백 혜택",
+      "app_url": "https://coinone.co.kr",
+      "icon_color": "#1F53FF"
+    },
+    {
+      "id": "baemin",
+      "name_ko": "배달의민족",
+      "name_en": "Baemin",
+      "category": "음식배달",
+      "description": "첫 주문 1만원 할인 쿠폰 제공",
+      "app_url": "https://baemin.com",
+      "icon_color": "#2AC1BC"
+    }
+  ],
+  "referrals": [
+    {
+      "id": "ref_apple_1",
+      "app_id": "apple",
+      "code": "APPL-KR-STUDENT-01",
+      "nickname": "맥북에어매니아",
+      "created_at": "2026-09-29T09:15:00",
+      "copy_count": 1,
+      "status": "ACTIVE",
+      "cooldown_until": null
+    },
+    {
+      "id": "ref_apple_2",
+      "app_id": "apple",
+      "code": "APPL-VIP-8822",
+      "nickname": "스티브잡스팬",
+      "created_at": "2026-09-29T13:20:00",
+      "copy_count": 0,
+      "status": "ACTIVE",
+      "cooldown_until": null
+    },
+    {
+      "id": "ref_toss_1",
+      "app_id": "toss",
+      "code": "TOSS-LUCKY-777",
+      "nickname": "행운의토스",
+      "created_at": "2026-09-29T08:00:00",
+      "copy_count": 2,
+      "status": "ACTIVE",
+      "cooldown_until": null
+    },
+    {
+      "id": "ref_toss_2",
+      "app_id": "toss",
+      "code": "TOSS-FAST-100",
+      "nickname": "파란통장",
+      "created_at": "2026-09-29T14:10:00",
+      "copy_count": 0,
+      "status": "ACTIVE",
+      "cooldown_until": null
+    },
+    {
+      "id": "ref_kream_1",
+      "app_id": "kream",
+      "code": "KREAM-SNEAK-33",
+      "nickname": "나이키매니아",
+      "created_at": "2026-09-29T10:40:00",
+      "copy_count": 0,
+      "status": "ACTIVE",
+      "cooldown_until": null
+    },
+    {
+      "id": "ref_choco_2",
+      "app_id": "choco",
+      "code": "CHOCO-KING-99",
+      "nickname": "초코왕자",
+      "created_at": "2026-09-29T11:30:00",
+      "copy_count": 0,
+      "status": "ACTIVE",
+      "cooldown_until": null
+    },
+    {
+      "id": "ref_choco_3",
+      "app_id": "choco",
+      "code": "CHOCO-LOVER-21",
+      "nickname": "가나다라",
+      "created_at": "2026-09-29T12:45:00",
+      "copy_count": 0,
+      "status": "ACTIVE",
+      "cooldown_until": null
+    },
+    {
+      "id": "ref_choco_1",
+      "app_id": "choco",
+      "code": "CHOCO-SWEET-77",
+      "nickname": "달콤초코",
+      "created_at": "2026-09-29T10:00:00",
+      "copy_count": 1,
+      "status": "ACTIVE",
+      "cooldown_until": "2026-09-29T16:55:24.596391",
+      "last_copied_at": "2026-09-29T16:45:24.596391"
+    }
+  ]
+}
