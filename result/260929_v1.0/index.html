@@ -341,65 +341,1966 @@
   <script>
     // 32개 기본 초인기 앱 시드 데이터 (별칭 포함)
     const SEED_DATA = {
-      apps: [
-        { id: "toss", name_ko: "토스", name_en: "Toss", aliases: ["토스뱅크", "토스증권", "ㅌㅅ"], category: "금융/핀테크", description: "친구 초대 시 둘 다 최대 5,000원 랜덤 포인트 증정", app_url: "https://toss.im", icon_color: "#0064FF" },
-        { id: "kakaobank", name_ko: "카카오뱅크", name_en: "KakaoBank", aliases: ["카뱅", "카카오", "ㅋㅂ", "ㅋㅋㅇㅂㅋ"], category: "금융/핀테크", description: "모임통장 및 26주적금 개설 시 캐시백 혜택", app_url: "https://www.kakaobank.com", icon_color: "#FEE500" },
-        { id: "kbank", name_ko: "케이뱅크", name_en: "K-Bank", aliases: ["케이", "케뱅", "ㅋㅇㅂㅋ"], category: "금융/핀테크", description: "행운상자 열고 최대 10만원 현금 당첨 기회", app_url: "https://www.kbanknow.com", icon_color: "#00186B" },
-        { id: "shinhan_sol", name_ko: "신한 SOL", name_en: "Shinhan SOL", aliases: ["신한은행", "신한쏠", "쏠", "ㅅㅎ"], category: "금융/핀테크", description: "신규 계좌 개설 시 마이신한포인트 즉시 지급", app_url: "https://www.shinhan.com", icon_color: "#0046FF" },
-        { id: "kb_star", name_ko: "KB스타뱅킹", name_en: "KB Star", aliases: ["국민은행", "국민", "스타뱅킹", "ㄱㅁ"], category: "금융/핀테크", description: "스타뱅킹 가입 시 스타프렌즈 적립금 제공", app_url: "https://www.kbstar.com", icon_color: "#FFBC00" },
-        { id: "naverpay", name_ko: "네이버페이", name_en: "Naver Pay", aliases: ["네페", "네이버", "ㄴㅇㅂ"], category: "금융/핀테크", description: "초대 링크로 가입 시 네이버페이 포인트 5,000P", app_url: "https://pay.naver.com", icon_color: "#03C75A" },
-        { id: "monimo", name_ko: "모니모", name_en: "Monimo", aliases: ["삼성모니모", "삼성금융", "ㅁㄴㅁ"], category: "앱테크", description: "가입 시 젤리 및 스페셜 젤리(최대 3만원) 지급", app_url: "https://www.monimo.com", icon_color: "#1428A0" },
-        { id: "coupang", name_ko: "쿠팡", name_en: "Coupang", aliases: ["로켓배송", "로켓와우", "ㅋㅍ"], category: "쇼핑/이커머스", description: "로켓와우 첫 달 무료 체험 및 5천원 캐시백", app_url: "https://www.coupang.com", icon_color: "#E30613" },
-        { id: "aliexpress", name_ko: "알리익스프레스", name_en: "AliExpress", aliases: ["알리", "알리익스", "ㅇㄹ", "ㅇㄹㅇㅅㅍㄹㅅ"], category: "쇼핑/이커머스", description: "신규 가입 시 100원 딜 및 웰컴 쿠폰팩 4종", app_url: "https://ko.aliexpress.com", icon_color: "#FF4747" },
-        { id: "temu", name_ko: "테무", name_en: "Temu", aliases: ["티무", "ㅌㅁ"], category: "쇼핑/이커머스", description: "신규 앱 설치 시 10만원 상당 쿠폰팩 및 무료 선물 혜택", app_url: "https://www.temu.com", icon_color: "#FB7701" },
-        { id: "kurly", name_ko: "컬리", name_en: "Kurly", aliases: ["마켓컬리", "ㅋㄹ", "ㅁㅋㅋㄹ"], category: "쇼핑/이커머스", description: "친구 초대 시 첫 주문 완료 후 적립금 5,000원", app_url: "https://www.kurly.com", icon_color: "#5F0080" },
-        { id: "karrot", name_ko: "당근", name_en: "Karrot", aliases: ["당근마켓", "ㄷㄱ", "ㄷㄱㅁㅋ"], category: "쇼핑/이커머스", description: "동네 인증 및 친구 초대 시 당근머니 지급", app_url: "https://www.daangn.com", icon_color: "#FF6F0F" },
-        { id: "ohouse", name_ko: "오늘의집", name_en: "Ohouse", aliases: ["오하우스", "ㅇㄴㅇㅈ"], category: "쇼핑/이커머스", description: "친구 초대 코드 입력 시 5,000원 즉시 할인 쿠폰", app_url: "https://ohou.se", icon_color: "#35C5F0" },
-        { id: "baemin", name_ko: "배달의민족", name_en: "Baemin", aliases: ["배민", "배민원", "ㅂㅁ", "ㅂㄷㅇㅁㅈ"], category: "음식배달", description: "첫 주문 시 1만원 상당 웰컴 쿠폰팩 증정", app_url: "https://baemin.com", icon_color: "#2AC1BC" },
-        { id: "coupangeats", name_ko: "쿠팡이츠", name_en: "Coupang Eats", aliases: ["쿠이", "쿠팡배달", "ㅋㅇ", "ㅋㅍㅇㅊ"], category: "음식배달", description: "와우회원 무제한 무료배달 및 5천원 할인 쿠폰", app_url: "https://www.coupangeats.com", icon_color: "#00A5FF" },
-        { id: "yogiyo", name_ko: "요기요", name_en: "Yogiyo", aliases: ["요기패스", "ㅇㄱㅇ"], category: "음식배달", description: "첫 주문 시 최대 1만원 즉시 할인", app_url: "https://www.yogiyo.co.kr", icon_color: "#FA0050" },
-        { id: "kream", name_ko: "크림", name_en: "KREAM", aliases: ["크림스니커즈", "한정판", "ㅋㄹ"], category: "패션/뷰티", description: "회원가입 시 2,000 포인트 즉시 적립", app_url: "https://kream.co.kr", icon_color: "#222222" },
-        { id: "musinsa", name_ko: "무신사", name_en: "Musinsa", aliases: ["무탠다드", "ㅁㅅㅅ"], category: "패션/뷰티", description: "친구 초대 시 둘 다 적립금 1,000원 + 첫 구매 할인 쿠폰", app_url: "https://www.musinsa.com", icon_color: "#000000" },
-        { id: "oliveyoung", name_ko: "올리브영", name_en: "Olive Young", aliases: ["올영", "올리브", "ㅇㄹㅂㅇ", "ㅇㅇ"], category: "패션/뷰티", description: "신규 가입 시 4천원 할인 쿠폰 및 올영세일 적립금", app_url: "https://www.oliveyoung.co.kr", icon_color: "#94C11F" },
-        { id: "ably", name_ko: "에이블리", name_en: "Ably", aliases: ["에블", "ㅇㅇㅂㄹ"], category: "패션/뷰티", description: "신규 가입 시 5,000원 쿠폰팩 즉시 발급", app_url: "https://m.a-bly.com", icon_color: "#FF4975" },
-        { id: "zigzag", name_ko: "지그재그", name_en: "Zigzag", aliases: ["직잭", "ㅈㄱㅈㄱ"], category: "패션/뷰티", description: "첫 구매 20% 할인 쿠폰 및 직진배송 무료배송", app_url: "https://zigzag.kr", icon_color: "#FF2D78" },
-        { id: "tiktok_lite", name_ko: "틱톡 라이트", name_en: "TikTok Lite", aliases: ["틱톡", "틱라", "ㅌㅌ", "ㅌㅌㄹㅇㅌ"], category: "앱테크", description: "친구 초대 출석 시 최대 3만원 상당 현금 포인트 지급", app_url: "https://lite.tiktok.com", icon_color: "#FE2C55" },
-        { id: "cashwalk", name_ko: "캐시워크", name_en: "Cashwalk", aliases: ["캐워크", "만보기", "ㅋㅅㅇㅋ"], category: "앱테크", description: "추천인 코드 입력 시 1,000캐시 즉시 지급", app_url: "https://cashwalk.com", icon_color: "#FFD000" },
-        { id: "upbit", name_ko: "업비트", name_en: "Upbit", aliases: ["비트코인", "두나무", "ㅇㅂㅌ"], category: "가상자산/재테크", description: "케이뱅크 실명계좌 연동 및 첫 거래 이벤트", app_url: "https://upbit.com", icon_color: "#093687" },
-        { id: "bithumb", name_ko: "빗썸", name_en: "Bithumb", aliases: ["빗섬", "ㅂㅅ"], category: "가상자산/재테크", description: "신규 가입 시 2만원 상당 웰컴 가상자산 지급", app_url: "https://www.bithumb.com", icon_color: "#F37321" },
-        { id: "coinone", name_ko: "코인원", name_en: "Coinone", aliases: ["코인", "ㅋㅇㅇ"], category: "가상자산/재테크", description: "거래 수수료 평생 20% 페이백 혜택", app_url: "https://coinone.co.kr", icon_color: "#1F53FF" },
-        { id: "yanolja", name_ko: "야놀자", name_en: "Yanolja", aliases: ["숙박", "여행", "ㅇㄴㅈ"], category: "여행/숙박", description: "친구 초대 시 코인 2,000P 및 5만원 쿠폰팩", app_url: "https://www.yanolja.com", icon_color: "#FF0055" },
-        { id: "goodchoice", name_ko: "여기어때", name_en: "Good Choice", aliases: ["여기", "숙소", "ㅇㄱㅇㄸ"], category: "여행/숙박", description: "신규 가입 총 15만원 쿠폰팩 + 친구 추천 포인트", app_url: "https://www.goodchoice.kr", icon_color: "#F7323F" },
-        { id: "ridi", name_ko: "리디", name_en: "Ridi", aliases: ["리디북스", "웹툰", "ㄹㄷ"], category: "도서/구독", description: "친구 초대 시 리디캐시 포인트 즉시 지급", app_url: "https://ridibooks.com", icon_color: "#1F8CE6" },
-        { id: "millie", name_ko: "밀리의서재", name_en: "Millie", aliases: ["밀리", "전자책", "ㅁㄹㅇㅅㅈ"], category: "도서/구독", description: "첫 달 무료 구독 및 친구 초대 1개월 추가 연장", app_url: "https://www.millie.co.kr", icon_color: "#FFEB00" },
-        { id: "choco", name_ko: "초코", name_en: "Choco", aliases: ["초콜릿", "초코앱", "ㅊㅋ"], category: "라이프스타일", description: "가입 시 웰컴 초콜릿 포인트 3,000P 지급", app_url: "https://choco.example.com", icon_color: "#8B5A2B" },
-        { id: "apple", name_ko: "애플", name_en: "Apple", aliases: ["아이폰", "맥북", "ㅇㅍ"], category: "쇼핑/이커머스", description: "학생 교육 할인 및 기기 구매 시 액세서리 쿠폰 제공", app_url: "https://www.apple.com/kr", icon_color: "#1C1C1E" }
+  "apps": [
+    {
+      "id": "toss",
+      "name_ko": "토스",
+      "name_en": "Toss",
+      "aliases": [
+        "토스뱅크",
+        "토스증권",
+        "ㅌㅅ"
       ],
-      referrals: [
-        { id: "ref_toss_1", app_id: "toss", code: "TOSS-LUCKY-777", nickname: "행운의토스", copy_count: 5 },
-        { id: "ref_kakaobank_1", app_id: "kakaobank", code: "KBANK-LION-88", nickname: "라이언러버", copy_count: 3 },
-        { id: "ref_kbank_1", app_id: "kbank", code: "KBANK-CASH-77", nickname: "케이왕자", copy_count: 4 },
-        { id: "ref_coupang_1", app_id: "coupang", code: "COUP-ROCKET-99", nickname: "와우회원", copy_count: 7 },
-        { id: "ref_aliexpress_1", app_id: "aliexpress", code: "ALI-SALE-8822", nickname: "직구고수", copy_count: 4 },
-        { id: "ref_baemin_1", app_id: "baemin", code: "BAEMIN-YUMMY-77", nickname: "배민VIP", copy_count: 9 },
-        { id: "ref_musinsa_1", app_id: "musinsa", code: "MUSINSA-OOTD-88", nickname: "패셔니스타", copy_count: 6 },
-        { id: "ref_oliveyoung_1", app_id: "oliveyoung", code: "OLIVE-BEAUTY-77", nickname: "올영세일", copy_count: 4 },
-        { id: "ref_tiktok_lite_1", app_id: "tiktok_lite", code: "TIKTOK-CASH-77", nickname: "매일출석", copy_count: 12 },
-        { id: "ref_upbit_1", app_id: "upbit", code: "UPBIT-COIN-777", nickname: "코인마스터", copy_count: 3 },
-        { id: "ref_choco_1", app_id: "choco", code: "CHOCO-SWEET-77", nickname: "달콤초코", copy_count: 3 },
-        { id: "ref_apple_1", app_id: "apple", code: "APPL-KR-STUDENT-01", nickname: "맥북에어매니아", copy_count: 2 }
-      ]
-    };
+      "category": "금융/핀테크",
+      "description": "친구 초대 시 둘 다 최대 5,000원 랜덤 포인트 증정",
+      "app_url": "https://toss.im",
+      "icon_color": "#0064FF"
+    },
+    {
+      "id": "kakaobank",
+      "name_ko": "카카오뱅크",
+      "name_en": "KakaoBank",
+      "aliases": [
+        "카뱅",
+        "카카오",
+        "ㅋㅂ",
+        "ㅋㅋㅇㅂㅋ"
+      ],
+      "category": "금융/핀테크",
+      "description": "모임통장 및 26주적금 개설 시 캐시백 혜택",
+      "app_url": "https://www.kakaobank.com",
+      "icon_color": "#FEE500"
+    },
+    {
+      "id": "kbank",
+      "name_ko": "케이뱅크",
+      "name_en": "K-Bank",
+      "aliases": [
+        "케이",
+        "케뱅",
+        "ㅋㅇㅂㅋ"
+      ],
+      "category": "금융/핀테크",
+      "description": "행운상자 열고 최대 10만원 현금 당첨 기회",
+      "app_url": "https://www.kbanknow.com",
+      "icon_color": "#00186B"
+    },
+    {
+      "id": "shinhan_sol",
+      "name_ko": "신한 SOL",
+      "name_en": "Shinhan SOL",
+      "aliases": [
+        "신한은행",
+        "신한쏠",
+        "쏠",
+        "ㅅㅎ"
+      ],
+      "category": "금융/핀테크",
+      "description": "신규 계좌 개설 시 마이신한포인트 즉시 지급",
+      "app_url": "https://www.shinhan.com",
+      "icon_color": "#0046FF"
+    },
+    {
+      "id": "kb_star",
+      "name_ko": "KB스타뱅킹",
+      "name_en": "KB Star",
+      "aliases": [
+        "국민은행",
+        "국민",
+        "스타뱅킹",
+        "ㄱㅁ"
+      ],
+      "category": "금융/핀테크",
+      "description": "스타뱅킹 가입 시 스타프렌즈 적립금 제공",
+      "app_url": "https://www.kbstar.com",
+      "icon_color": "#FFBC00"
+    },
+    {
+      "id": "naverpay",
+      "name_ko": "네이버페이",
+      "name_en": "Naver Pay",
+      "aliases": [
+        "네페",
+        "네이버",
+        "ㄴㅇㅂ"
+      ],
+      "category": "금융/핀테크",
+      "description": "초대 링크로 가입 시 네이버페이 포인트 5,000P",
+      "app_url": "https://pay.naver.com",
+      "icon_color": "#03C75A"
+    },
+    {
+      "id": "kakaopay",
+      "name_ko": "카카오페이",
+      "name_en": "Kakao Pay",
+      "aliases": [
+        "카페",
+        "카카오페이머니",
+        "ㅋㅋㅇㅍㅇ"
+      ],
+      "category": "금융/핀테크",
+      "description": "친구 초대 시 페이머니 최대 5,000원 즉시 증정",
+      "app_url": "https://www.kakaopay.com",
+      "icon_color": "#FFEB00"
+    },
+    {
+      "id": "monimo",
+      "name_ko": "모니모",
+      "name_en": "Monimo",
+      "aliases": [
+        "삼성모니모",
+        "삼성금융",
+        "ㅁㄴㅁ"
+      ],
+      "category": "앱테크",
+      "description": "가입 시 젤리 및 스페셜 젤리(최대 3만원) 지급",
+      "app_url": "https://www.monimo.com",
+      "icon_color": "#1428A0"
+    },
+    {
+      "id": "finda",
+      "name_ko": "핀다",
+      "name_en": "Finda",
+      "aliases": [
+        "대출비교",
+        "ㅍㄷ"
+      ],
+      "category": "금융/핀테크",
+      "description": "친구 초대 시 스타벅스 기프티콘 및 현금 리워드",
+      "app_url": "https://www.finda.co.kr",
+      "icon_color": "#1B64DA"
+    },
+    {
+      "id": "banksalad",
+      "name_ko": "뱅크샐러드",
+      "name_en": "Banksalad",
+      "aliases": [
+        "뱅샐",
+        "유전자검사",
+        "ㅂㅅㄹㄷ"
+      ],
+      "category": "금융/핀테크",
+      "description": "무료 유전자 검사권 및 자산관리 리워드",
+      "app_url": "https://banksalad.com",
+      "icon_color": "#00D084"
+    },
+    {
+      "id": "miraeasset",
+      "name_ko": "미래에셋증권",
+      "name_en": "Mirae Asset",
+      "aliases": [
+        "미래에셋",
+        "주식",
+        "ㅁㄹㅇㅅ"
+      ],
+      "category": "금융/핀테크",
+      "description": "비대면 계좌 개설 시 미국 소수점 주식 2만원 증정",
+      "app_url": "https://securities.miraeasset.com",
+      "icon_color": "#F37321"
+    },
+    {
+      "id": "kiwoom",
+      "name_ko": "키움증권",
+      "name_en": "Kiwoom",
+      "aliases": [
+        "영웅문",
+        "키움",
+        "ㅋㅇㅈㄱ"
+      ],
+      "category": "금융/핀테크",
+      "description": "국내/해외주식 첫 거래 시 현금 4만원 증정",
+      "app_url": "https://www.kiwoom.com",
+      "icon_color": "#7B1FA2"
+    },
+    {
+      "id": "namu",
+      "name_ko": "나무증권",
+      "name_en": "Namu",
+      "aliases": [
+        "NH투자증권",
+        "나무",
+        "ㄴㅁ"
+      ],
+      "category": "금융/핀테크",
+      "description": "신규 계좌 개설 시 투자지원금 달러 지급",
+      "app_url": "https://www.mynamu.com",
+      "icon_color": "#00A05B"
+    },
+    {
+      "id": "koreainvestment",
+      "name_ko": "한국투자증권",
+      "name_en": "Korea Investment",
+      "aliases": [
+        "한투",
+        "미니스탁",
+        "ㅎㅌ"
+      ],
+      "category": "금융/핀테크",
+      "description": "미니스탁 해외주식 무료 지급 및 수수료 혜택",
+      "app_url": "https://www.truefriend.com",
+      "icon_color": "#003876"
+    },
+    {
+      "id": "signalplanner",
+      "name_ko": "시그널플래너",
+      "name_en": "Signal Planner",
+      "aliases": [
+        "보험비교",
+        "해빗팩토리",
+        "ㅅㄱㄴ"
+      ],
+      "category": "금융/핀테크",
+      "description": "내 보험 분석 시 스타벅스 아메리카노 즉시 증정",
+      "app_url": "https://signalplanner.co.kr",
+      "icon_color": "#0055FF"
+    },
+    {
+      "id": "toss_securities",
+      "name_ko": "토스증권",
+      "name_en": "Toss Securities",
+      "aliases": [
+        "토증",
+        "토스주식",
+        "ㅌㅈ"
+      ],
+      "category": "금융/핀테크",
+      "description": "주식 계좌 개설 시 랜덤 인기 미국주식 1주 지급",
+      "app_url": "https://tossinvest.com",
+      "icon_color": "#0064FF"
+    },
+    {
+      "id": "coupang",
+      "name_ko": "쿠팡",
+      "name_en": "Coupang",
+      "aliases": [
+        "로켓배송",
+        "로켓와우",
+        "ㅋㅍ"
+      ],
+      "category": "쇼핑/이커머스",
+      "description": "로켓와우 첫 달 무료 체험 및 5천원 캐시백",
+      "app_url": "https://www.coupang.com",
+      "icon_color": "#E30613"
+    },
+    {
+      "id": "aliexpress",
+      "name_ko": "알리익스프레스",
+      "name_en": "AliExpress",
+      "aliases": [
+        "알리",
+        "알리익스",
+        "ㅇㄹ",
+        "ㅇㄹㅇㅅㅍㄹㅅ"
+      ],
+      "category": "쇼핑/이커머스",
+      "description": "신규 가입 시 100원 딜 및 웰컴 쿠폰팩 4종",
+      "app_url": "https://ko.aliexpress.com",
+      "icon_color": "#FF4747"
+    },
+    {
+      "id": "temu",
+      "name_ko": "테무",
+      "name_en": "Temu",
+      "aliases": [
+        "티무",
+        "ㅌㅁ"
+      ],
+      "category": "쇼핑/이커머스",
+      "description": "신규 앱 설치 시 10만원 상당 쿠폰팩 및 무료 선물 혜택",
+      "app_url": "https://www.temu.com",
+      "icon_color": "#FB7701"
+    },
+    {
+      "id": "kurly",
+      "name_ko": "컬리",
+      "name_en": "Kurly",
+      "aliases": [
+        "마켓컬리",
+        "ㅋㄹ",
+        "ㅁㅋㅋㄹ"
+      ],
+      "category": "쇼핑/이커머스",
+      "description": "친구 초대 시 첫 주문 완료 후 적립금 5,000원",
+      "app_url": "https://www.kurly.com",
+      "icon_color": "#5F0080"
+    },
+    {
+      "id": "oasis",
+      "name_ko": "오아시스마켓",
+      "name_en": "Oasis Market",
+      "aliases": [
+        "오아시스",
+        "새벽배송",
+        "ㅇㅇㅅㅅ"
+      ],
+      "category": "쇼핑/이커머스",
+      "description": "친구 초대 시 첫 구매 후 추천인과 친구 모두 10,000원",
+      "app_url": "https://www.oasis.co.kr",
+      "icon_color": "#28A745"
+    },
+    {
+      "id": "karrot",
+      "name_ko": "당근",
+      "name_en": "Karrot",
+      "aliases": [
+        "당근마켓",
+        "ㄷㄱ",
+        "ㄷㄱㅁㅋ"
+      ],
+      "category": "쇼핑/이커머스",
+      "description": "동네 인증 및 친구 초대 시 당근머니 지급",
+      "app_url": "https://www.daangn.com",
+      "icon_color": "#FF6F0F"
+    },
+    {
+      "id": "bungae",
+      "name_ko": "번개장터",
+      "name_en": "Bungaejangter",
+      "aliases": [
+        "번장",
+        "번개페이",
+        "ㅂㅈ"
+      ],
+      "category": "쇼핑/이커머스",
+      "description": "초대 코드 입력 시 번개포인트 2,000P 지급",
+      "app_url": "https://m.bunjang.co.kr",
+      "icon_color": "#FF0000"
+    },
+    {
+      "id": "joonggonara",
+      "name_ko": "중고나라",
+      "name_en": "Joonggonara",
+      "aliases": [
+        "중나",
+        "ㅈㄱㄴㄹ"
+      ],
+      "category": "쇼핑/이커머스",
+      "description": "안전결제 첫 결제 수수료 무료 쿠폰 증정",
+      "app_url": "https://web.joongna.com",
+      "icon_color": "#00A862"
+    },
+    {
+      "id": "ohouse",
+      "name_ko": "오늘의집",
+      "name_en": "Ohouse",
+      "aliases": [
+        "오하우스",
+        "ㅇㄴㅇㅈ"
+      ],
+      "category": "쇼핑/이커머스",
+      "description": "친구 초대 코드 입력 시 5,000원 즉시 할인 쿠폰",
+      "app_url": "https://ohou.se",
+      "icon_color": "#35C5F0"
+    },
+    {
+      "id": "kream",
+      "name_ko": "크림",
+      "name_en": "KREAM",
+      "aliases": [
+        "크림스니커즈",
+        "한정판",
+        "ㅋㄹ"
+      ],
+      "category": "쇼핑/이커머스",
+      "description": "회원가입 시 2,000 포인트 즉시 적립",
+      "app_url": "https://kream.co.kr",
+      "icon_color": "#222222"
+    },
+    {
+      "id": "soldout",
+      "name_ko": "솔드아웃",
+      "name_en": "SoldOut",
+      "aliases": [
+        "무신사솔드아웃",
+        "ㅅㄷㅇㅇ"
+      ],
+      "category": "쇼핑/이커머스",
+      "description": "추천코드 입력 가입 시 3,000P 즉시 적립",
+      "app_url": "https://www.soldout.co.kr",
+      "icon_color": "#000000"
+    },
+    {
+      "id": "iherb",
+      "name_ko": "아이허브",
+      "name_en": "iHerb",
+      "aliases": [
+        "영양제",
+        "직구",
+        "ㅇㅇㅎㅂ"
+      ],
+      "category": "쇼핑/이커머스",
+      "description": "추천인 코드 입력 시 전 품목 5% 상시 할인 + 첫 구매 20%",
+      "app_url": "https://kr.iherb.com",
+      "icon_color": "#458500"
+    },
+    {
+      "id": "elevenst",
+      "name_ko": "11번가",
+      "name_en": "11st",
+      "aliases": [
+        "십일번가",
+        "우주패스",
+        "11ㅂㄱ"
+      ],
+      "category": "쇼핑/이커머스",
+      "description": "우주패스 첫 달 100원 및 SK pay 포인트 적립",
+      "app_url": "https://www.11st.co.kr",
+      "icon_color": "#FA2828"
+    },
+    {
+      "id": "gmarket",
+      "name_ko": "G마켓",
+      "name_en": "Gmarket",
+      "aliases": [
+        "지마켓",
+        "스마일클럽",
+        "ㅈㅁㅋ"
+      ],
+      "category": "쇼핑/이커머스",
+      "description": "스마일클럽 가입 시 스마일캐시 35,000원 즉시 캐시백",
+      "app_url": "https://www.gmarket.co.kr",
+      "icon_color": "#00B050"
+    },
+    {
+      "id": "ssg",
+      "name_ko": "SSG닷컴",
+      "name_en": "SSG.COM",
+      "aliases": [
+        "쓱닷컴",
+        "이마트몰",
+        "ㅅㄱ"
+      ],
+      "category": "쇼핑/이커머스",
+      "description": "첫 주문 1만원 할인 쿠폰 및 쓱머니 적립",
+      "app_url": "https://www.ssg.com",
+      "icon_color": "#FA5252"
+    },
+    {
+      "id": "baemin",
+      "name_ko": "배달의민족",
+      "name_en": "Baemin",
+      "aliases": [
+        "배민",
+        "배민원",
+        "ㅂㅁ",
+        "ㅂㄷㅇㅁㅈ"
+      ],
+      "category": "음식배달",
+      "description": "첫 주문 시 1만원 상당 웰컴 쿠폰팩 증정",
+      "app_url": "https://baemin.com",
+      "icon_color": "#2AC1BC"
+    },
+    {
+      "id": "coupangeats",
+      "name_ko": "쿠팡이츠",
+      "name_en": "Coupang Eats",
+      "aliases": [
+        "쿠이",
+        "쿠팡배달",
+        "ㅋㅇ",
+        "ㅋㅍㅇㅊ"
+      ],
+      "category": "음식배달",
+      "description": "와우회원 무제한 무료배달 및 5천원 할인 쿠폰",
+      "app_url": "https://www.coupangeats.com",
+      "icon_color": "#00A5FF"
+    },
+    {
+      "id": "yogiyo",
+      "name_ko": "요기요",
+      "name_en": "Yogiyo",
+      "aliases": [
+        "요기패스",
+        "ㅇㄱㅇ"
+      ],
+      "category": "음식배달",
+      "description": "첫 주문 시 최대 1만원 즉시 할인",
+      "app_url": "https://www.yogiyo.co.kr",
+      "icon_color": "#FA0050"
+    },
+    {
+      "id": "ddangyo",
+      "name_ko": "땡겨요",
+      "name_en": "Ddangyo",
+      "aliases": [
+        "신한배달",
+        "ㄸㄱㅇ"
+      ],
+      "category": "음식배달",
+      "description": "신규 가입 첫 주문 시 5,000원 쿠폰 2장 지급",
+      "app_url": "https://www.ddangyo.com",
+      "icon_color": "#FF5900"
+    },
+    {
+      "id": "catchtable",
+      "name_ko": "캐치테이블",
+      "name_en": "Catchtable",
+      "aliases": [
+        "식당예약",
+        "ㅋㅊㅌㅇㅂ"
+      ],
+      "category": "음식배달",
+      "description": "오마카세/파인다이닝 예약 시 5,000원 할인 쿠폰",
+      "app_url": "https://app.catchtable.co.kr",
+      "icon_color": "#FF2B2B"
+    },
+    {
+      "id": "tabling",
+      "name_ko": "테이블링",
+      "name_en": "Tabling",
+      "aliases": [
+        "원격줄서기",
+        "ㅌㅇㅂㄹ"
+      ],
+      "category": "음식배달",
+      "description": "테이블링 페이 충전 시 즉시 3,000원 페이백",
+      "app_url": "https://www.tabling.co.kr",
+      "icon_color": "#1C1C1E"
+    },
+    {
+      "id": "starbucks",
+      "name_ko": "스타벅스",
+      "name_en": "Starbucks",
+      "aliases": [
+        "스벅",
+        "사이렌오더",
+        "ㅅㅂ"
+      ],
+      "category": "음식배달",
+      "description": "e-카드 최초 등록 시 무료 음료 e-쿠폰(BOGO) 증정",
+      "app_url": "https://www.starbucks.co.kr",
+      "icon_color": "#006241"
+    },
+    {
+      "id": "marketit",
+      "name_ko": "마켓잇",
+      "name_en": "Marketit",
+      "aliases": [
+        "인플루언서협찬",
+        "ㅁㅋㅇ"
+      ],
+      "category": "음식배달",
+      "description": "외식/맛집 협찬 포인트 친구 초대 5,000P",
+      "app_url": "https://marketit.asia",
+      "icon_color": "#3B82F6"
+    },
+    {
+      "id": "musinsa",
+      "name_ko": "무신사",
+      "name_en": "Musinsa",
+      "aliases": [
+        "무탠다드",
+        "ㅁㅅㅅ"
+      ],
+      "category": "패션/뷰티",
+      "description": "친구 초대 시 둘 다 적립금 1,000원 + 첫 구매 할인 쿠폰",
+      "app_url": "https://www.musinsa.com",
+      "icon_color": "#000000"
+    },
+    {
+      "id": "oliveyoung",
+      "name_ko": "올리브영",
+      "name_en": "Olive Young",
+      "aliases": [
+        "올영",
+        "올리브",
+        "ㅇㄹㅂㅇ",
+        "ㅇㅇ"
+      ],
+      "category": "패션/뷰티",
+      "description": "신규 가입 시 4천원 할인 쿠폰 및 올영세일 적립금",
+      "app_url": "https://www.oliveyoung.co.kr",
+      "icon_color": "#94C11F"
+    },
+    {
+      "id": "ably",
+      "name_ko": "에이블리",
+      "name_en": "Ably",
+      "aliases": [
+        "에블",
+        "ㅇㅇㅂㄹ"
+      ],
+      "category": "패션/뷰티",
+      "description": "신규 가입 시 5,000원 쿠폰팩 즉시 발급",
+      "app_url": "https://m.a-bly.com",
+      "icon_color": "#FF4975"
+    },
+    {
+      "id": "zigzag",
+      "name_ko": "지그재그",
+      "name_en": "Zigzag",
+      "aliases": [
+        "직잭",
+        "ㅈㄱㅈㄱ"
+      ],
+      "category": "패션/뷰티",
+      "description": "첫 구매 20% 할인 쿠폰 및 직진배송 무료배송",
+      "app_url": "https://zigzag.kr",
+      "icon_color": "#FF2D78"
+    },
+    {
+      "id": "29cm",
+      "name_ko": "29CM",
+      "name_en": "29CM",
+      "aliases": [
+        "이십구센티",
+        "29씨엠",
+        "ㅇㅅㄱ"
+      ],
+      "category": "패션/뷰티",
+      "description": "첫 결제 15% 할인 쿠폰 및 추천인 마일리지 5,000P",
+      "app_url": "https://www.29cm.co.kr",
+      "icon_color": "#000000"
+    },
+    {
+      "id": "wconcept",
+      "name_ko": "W컨셉",
+      "name_en": "W Concept",
+      "aliases": [
+        "더블유컨셉",
+        "ㄷㅂㅇㅋㅅ"
+      ],
+      "category": "패션/뷰티",
+      "description": "디자이너 브랜드 10% 쿠폰 및 5,000원 할인권",
+      "app_url": "https://www.wconcept.co.kr",
+      "icon_color": "#111111"
+    },
+    {
+      "id": "brandi",
+      "name_ko": "브랜디",
+      "name_en": "Brandi",
+      "aliases": [
+        "하루배송",
+        "ㅂㄹㄷ"
+      ],
+      "category": "패션/뷰티",
+      "description": "전 상품 무료배송 및 친구 초대 1,000P 즉시 지급",
+      "app_url": "https://www.brandi.co.kr",
+      "icon_color": "#FF2553"
+    },
+    {
+      "id": "hiver",
+      "name_ko": "하이버",
+      "name_en": "Hiver",
+      "aliases": [
+        "남성쇼핑",
+        "ㅎㅇㅂ"
+      ],
+      "category": "패션/뷰티",
+      "description": "남자 쇼핑앱 첫 구매 1만원 쿠폰팩",
+      "app_url": "https://www.hiver.co.kr",
+      "icon_color": "#1D1D1F"
+    },
+    {
+      "id": "queenit",
+      "name_ko": "퀸잇",
+      "name_en": "Queenit",
+      "aliases": [
+        "4050패션",
+        "ㅋㅇ"
+      ],
+      "category": "패션/뷰티",
+      "description": "가입 즉시 백화점 브랜드 10만원 쿠폰팩 지급",
+      "app_url": "https://www.queenit.kr",
+      "icon_color": "#E91E63"
+    },
+    {
+      "id": "trenbe",
+      "name_ko": "트렌비",
+      "name_en": "Trenbe",
+      "aliases": [
+        "명품쇼핑",
+        "ㅌㄹㅂ"
+      ],
+      "category": "패션/뷰티",
+      "description": "명품 구매 시 5만원 웰컴 쿠폰팩 즉시 발급",
+      "app_url": "https://www.trenbe.com",
+      "icon_color": "#333333"
+    },
+    {
+      "id": "tiktok_lite",
+      "name_ko": "틱톡 라이트",
+      "name_en": "TikTok Lite",
+      "aliases": [
+        "틱톡",
+        "틱라",
+        "ㅌㅌ",
+        "ㅌㅌㄹㅇㅌ"
+      ],
+      "category": "앱테크",
+      "description": "친구 초대 출석 시 최대 3만원 상당 현금 포인트 지급",
+      "app_url": "https://lite.tiktok.com",
+      "icon_color": "#FE2C55"
+    },
+    {
+      "id": "cashwalk",
+      "name_ko": "캐시워크",
+      "name_en": "Cashwalk",
+      "aliases": [
+        "캐워크",
+        "만보기",
+        "ㅋㅅㅇㅋ"
+      ],
+      "category": "앱테크",
+      "description": "추천인 코드 입력 시 1,000캐시 즉시 지급",
+      "app_url": "https://cashwalk.com",
+      "icon_color": "#FFD000"
+    },
+    {
+      "id": "cashdoc",
+      "name_ko": "캐시닥",
+      "name_en": "Cashdoc",
+      "aliases": [
+        "용돈퀴즈",
+        "ㅋㅅㄷ"
+      ],
+      "category": "앱테크",
+      "description": "가입 시 1,000캐시 + 매일 병원 리뷰 및 퀴즈 리워드",
+      "app_url": "https://cashdoc.me",
+      "icon_color": "#00B894"
+    },
+    {
+      "id": "challengers",
+      "name_ko": "챌린저스",
+      "name_en": "Challengers",
+      "aliases": [
+        "미라클모닝",
+        "습관형성",
+        "ㅊㄹㅈㅅ"
+      ],
+      "category": "앱테크",
+      "description": "추천코드 입력 시 100% 전액 환급 챌린지 상금 지원",
+      "app_url": "https://chlngers.com",
+      "icon_color": "#F03E3E"
+    },
+    {
+      "id": "balosodeuk",
+      "name_ko": "발로소득",
+      "name_en": "Balosodeuk",
+      "aliases": [
+        "일상지원금",
+        "ㅂㄹㅅㄷ"
+      ],
+      "category": "앱테크",
+      "description": "친구 초대 시 일상지원금 1,000코인 즉시 충전",
+      "app_url": "https://balosodeuk.com",
+      "icon_color": "#3B82F6"
+    },
+    {
+      "id": "timespread",
+      "name_ko": "타임스프레드",
+      "name_en": "Timespread",
+      "aliases": [
+        "폰잠금",
+        "시간표",
+        "ㅌㅇㅅㅍㄹㄷ"
+      ],
+      "category": "앱테크",
+      "description": "잠금화면 열 때마다 캐시 적립 + 친구 초대 1,000캐시",
+      "app_url": "https://timespread.co.kr",
+      "icon_color": "#6C5CE7"
+    },
+    {
+      "id": "moneywalk",
+      "name_ko": "머니워크",
+      "name_en": "Moneywalk",
+      "aliases": [
+        "건강만보기",
+        "ㅁㄴㅇㅋ"
+      ],
+      "category": "앱테크",
+      "description": "5,000보만 걸어도 매일 포인트 지급 + 친구 추천 1,000P",
+      "app_url": "https://moneywalk.com",
+      "icon_color": "#10B981"
+    },
+    {
+      "id": "okcashbag",
+      "name_ko": "OK캐쉬백",
+      "name_en": "OK Cashbag",
+      "aliases": [
+        "오케이캐쉬백",
+        "ㅇㅋㅇㅋㅅㅂ"
+      ],
+      "category": "앱테크",
+      "description": "오락(O락) 출석체크 및 친구 초대 1,000P",
+      "app_url": "https://www.okcashbag.com",
+      "icon_color": "#ED1C24"
+    },
+    {
+      "id": "panelnow",
+      "name_ko": "패널나우",
+      "name_en": "PanelNow",
+      "aliases": [
+        "설문조사",
+        "ㅍㄴㄴㅇ"
+      ],
+      "category": "앱테크",
+      "description": "가입 시 300P 즉시 적립 + 2,000P부터 현금 교환",
+      "app_url": "https://www.panelnow.co.kr",
+      "icon_color": "#FF7675"
+    },
+    {
+      "id": "embrain",
+      "name_ko": "엠브레인 패널파워",
+      "name_en": "Embrain Panel Power",
+      "aliases": [
+        "패널파워",
+        "엠브레인",
+        "ㅇㅂㄹㅇ"
+      ],
+      "category": "앱테크",
+      "description": "가입 후 일주일 간 2,500원 적립 보장 + 추천 적립",
+      "app_url": "https://www.panel.co.kr",
+      "icon_color": "#0984E3"
+    },
+    {
+      "id": "surveylink",
+      "name_ko": "서베이링크",
+      "name_en": "SurveyLink",
+      "aliases": [
+        "서베이",
+        "ㅅㅂㅇㄹㅋ"
+      ],
+      "category": "앱테크",
+      "description": "신규 가입 시 1,000P 및 모바일 영화관람권 추첨",
+      "app_url": "https://www.surveylink.co.kr",
+      "icon_color": "#E17055"
+    },
+    {
+      "id": "yafit",
+      "name_ko": "야핏무브",
+      "name_en": "Yafit Move",
+      "aliases": [
+        "자전거만보기",
+        "ㅇㅍㅁㅂ"
+      ],
+      "category": "앱테크",
+      "description": "걸음 및 라이딩으로 마일리지 적립 + 친구 초대 1,000M",
+      "app_url": "https://yafit.co.kr",
+      "icon_color": "#FDCB6E"
+    },
+    {
+      "id": "upbit",
+      "name_ko": "업비트",
+      "name_en": "Upbit",
+      "aliases": [
+        "비트코인",
+        "두나무",
+        "ㅇㅂㅌ"
+      ],
+      "category": "가상자산/재테크",
+      "description": "케이뱅크 실명계좌 연동 및 첫 거래 이벤트",
+      "app_url": "https://upbit.com",
+      "icon_color": "#093687"
+    },
+    {
+      "id": "bithumb",
+      "name_ko": "빗썸",
+      "name_en": "Bithumb",
+      "aliases": [
+        "빗섬",
+        "ㅂㅅ"
+      ],
+      "category": "가상자산/재테크",
+      "description": "신규 가입 시 2만원 상당 웰컴 가상자산 지급",
+      "app_url": "https://www.bithumb.com",
+      "icon_color": "#F37321"
+    },
+    {
+      "id": "coinone",
+      "name_ko": "코인원",
+      "name_en": "Coinone",
+      "aliases": [
+        "코인",
+        "ㅋㅇㅇ"
+      ],
+      "category": "가상자산/재테크",
+      "description": "거래 수수료 평생 20% 페이백 혜택",
+      "app_url": "https://coinone.co.kr",
+      "icon_color": "#1F53FF"
+    },
+    {
+      "id": "korbit",
+      "name_ko": "코빗",
+      "name_en": "Korbit",
+      "aliases": [
+        "신한코빗",
+        "ㅋㅂ"
+      ],
+      "category": "가상자산/재테크",
+      "description": "추천코드 입력 가입 시 10,000원 상당 비트코인 증정",
+      "app_url": "https://korbit.co.kr",
+      "icon_color": "#1B2A4A"
+    },
+    {
+      "id": "gopax",
+      "name_ko": "고팍스",
+      "name_en": "GOPAX",
+      "aliases": [
+        "전북은행고팍스",
+        "ㄱㅍㅅ"
+      ],
+      "category": "가상자산/재테크",
+      "description": "계좌 등록 및 첫 거래 시 5,000원 상당 원화 지급",
+      "app_url": "https://www.gopax.co.kr",
+      "icon_color": "#1E88E5"
+    },
+    {
+      "id": "binance",
+      "name_ko": "바이낸스",
+      "name_en": "Binance",
+      "aliases": [
+        "해외거래소",
+        "바낸",
+        "ㅂㅇㄴㅅ"
+      ],
+      "category": "가상자산/재테크",
+      "description": "레퍼럴 가입 시 거래 수수료 최대 20% 평생 할인",
+      "app_url": "https://www.binance.com",
+      "icon_color": "#F3BA2F"
+    },
+    {
+      "id": "bybit",
+      "name_ko": "바이비트",
+      "name_en": "Bybit",
+      "aliases": [
+        "선물거래",
+        "ㅂㅇㅂƮ"
+      ],
+      "category": "가상자산/재테크",
+      "description": "수수료 20% 할인 및 최대 $30,000 증정금 이벤트",
+      "app_url": "https://www.bybit.com",
+      "icon_color": "#FB923C"
+    },
+    {
+      "id": "bitget",
+      "name_ko": "비트겟",
+      "name_en": "Bitget",
+      "aliases": [
+        "카피트레이딩",
+        "ㅂƮㄱ"
+      ],
+      "category": "가상자산/재테크",
+      "description": "수수료 평생 50% 할인 + 신규 가입 $1,000 리워드",
+      "app_url": "https://www.bitget.com",
+      "icon_color": "#00F0FF"
+    },
+    {
+      "id": "okx",
+      "name_ko": "OKX",
+      "name_en": "OKX",
+      "aliases": [
+        "오케이엑스",
+        "ㅇㅋㅇㅅ"
+      ],
+      "category": "가상자산/재테크",
+      "description": "미스터리 박스 열고 최대 $10,000 상당 코인 당첨",
+      "app_url": "https://www.okx.com",
+      "icon_color": "#000000"
+    },
+    {
+      "id": "gateio",
+      "name_ko": "게이트아이오",
+      "name_en": "Gate.io",
+      "aliases": [
+        "게이트",
+        "ㄱㅇƮㅇㅇㅇ"
+      ],
+      "category": "가상자산/재테크",
+      "description": "상장 초기 신규 알트코인 에어드랍 및 20% 수수료 할인",
+      "app_url": "https://www.gate.io",
+      "icon_color": "#2196F3"
+    },
+    {
+      "id": "yanolja",
+      "name_ko": "야놀자",
+      "name_en": "Yanolja",
+      "aliases": [
+        "숙박",
+        "여행",
+        "ㅇㄴㅈ"
+      ],
+      "category": "여행/숙박",
+      "description": "친구 초대 시 코인 2,000P 및 5만원 쿠폰팩",
+      "app_url": "https://www.yanolja.com",
+      "icon_color": "#FF0055"
+    },
+    {
+      "id": "goodchoice",
+      "name_ko": "여기어때",
+      "name_en": "Good Choice",
+      "aliases": [
+        "여기",
+        "숙소",
+        "ㅇㄱㅇㄸ"
+      ],
+      "category": "여행/숙박",
+      "description": "신규 가입 총 15만원 쿠폰팩 + 친구 추천 포인트",
+      "app_url": "https://www.goodchoice.kr",
+      "icon_color": "#F7323F"
+    },
+    {
+      "id": "myrealtrip",
+      "name_ko": "마이리얼트립",
+      "name_en": "MyRealTrip",
+      "aliases": [
+        "마리트",
+        "해외투어",
+        "ㅁㅇㄹㅇㅌㄹ"
+      ],
+      "category": "여행/숙박",
+      "description": "초대 링크 가입 시 즉시 사용 가능한 5,000원 쿠폰 지급",
+      "app_url": "https://www.myrealtrip.com",
+      "icon_color": "#51ABF3"
+    },
+    {
+      "id": "agoda",
+      "name_ko": "아고다",
+      "name_en": "Agoda",
+      "aliases": [
+        "호텔예약",
+        "ㅇㄱㄷ"
+      ],
+      "category": "여행/숙박",
+      "description": "추천 초대 시 전 세계 호텔 10% 추가 할인 쿠폰",
+      "app_url": "https://www.agoda.com",
+      "icon_color": "#008577"
+    },
+    {
+      "id": "tripcom",
+      "name_ko": "트립닷컴",
+      "name_en": "Trip.com",
+      "aliases": [
+        "항공권",
+        "ㅌㄹㄷㅋ"
+      ],
+      "category": "여행/숙박",
+      "description": "항공권/호텔 예약 시 트립코인 리워드 및 할인",
+      "app_url": "https://kr.trip.com",
+      "icon_color": "#2681FF"
+    },
+    {
+      "id": "klook",
+      "name_ko": "클룩",
+      "name_en": "Klook",
+      "aliases": [
+        "입장권",
+        "투어패스",
+        "ㅋㄹ"
+      ],
+      "category": "여행/숙박",
+      "description": "친구 초대 링크 가입 시 3,500원 할인 쿠폰 즉시 발급",
+      "app_url": "https://www.klook.com",
+      "icon_color": "#FF5B00"
+    },
+    {
+      "id": "airbnb",
+      "name_ko": "에어비앤비",
+      "name_en": "Airbnb",
+      "aliases": [
+        "숙소공유",
+        "ㅇㅇㅂㅇㅂ"
+      ],
+      "category": "여행/숙박",
+      "description": "친구 초대 시 첫 여행 완료 후 여행 크레딧 지급",
+      "app_url": "https://www.airbnb.co.kr",
+      "icon_color": "#FF5A5F"
+    },
+    {
+      "id": "socar",
+      "name_ko": "쏘카",
+      "name_en": "Socar",
+      "aliases": [
+        "카셰어링",
+        "렌터카",
+        "ㅆㅋ"
+      ],
+      "category": "여행/숙박",
+      "description": "친구 추천 시 1만원 할인 쿠폰 + 추천인 크레딧",
+      "app_url": "https://www.socar.kr",
+      "icon_color": "#00A8FF"
+    },
+    {
+      "id": "greencar",
+      "name_ko": "그린카",
+      "name_en": "Greencar",
+      "aliases": [
+        "카셰어링",
+        "롯데렌탈",
+        "ㄱㄹㅋ"
+      ],
+      "category": "여행/숙박",
+      "description": "추천인 가입 시 1만원 무료 이용권 즉시 지급",
+      "app_url": "https://www.greencar.co.kr",
+      "icon_color": "#00C300"
+    },
+    {
+      "id": "tmoney_go",
+      "name_ko": "티머니GO",
+      "name_en": "Tmoney GO",
+      "aliases": [
+        "티머니고",
+        "고속버스",
+        "ㅌㅁㄴㄱ"
+      ],
+      "category": "여행/숙박",
+      "description": "고속/시외버스 및 따릉이 이용 시 GO마일리지 적립",
+      "app_url": "https://tmoneygo.tmoney.co.kr",
+      "icon_color": "#003478"
+    },
+    {
+      "id": "ridi",
+      "name_ko": "리디",
+      "name_en": "Ridi",
+      "aliases": [
+        "리디북스",
+        "웹툰",
+        "ㄹㄷ"
+      ],
+      "category": "도서/구독",
+      "description": "친구 초대 시 리디캐시 포인트 즉시 지급",
+      "app_url": "https://ridibooks.com",
+      "icon_color": "#1F8CE6"
+    },
+    {
+      "id": "millie",
+      "name_ko": "밀리의서재",
+      "name_en": "Millie",
+      "aliases": [
+        "밀리",
+        "전자책",
+        "ㅁㄹㅇㅅㅈ"
+      ],
+      "category": "도서/구독",
+      "description": "첫 달 무료 구독 및 친구 초대 1개월 추가 연장",
+      "app_url": "https://www.millie.co.kr",
+      "icon_color": "#FFEB00"
+    },
+    {
+      "id": "welaaa",
+      "name_ko": "윌라 오디오북",
+      "name_en": "Welaaa",
+      "aliases": [
+        "윌라",
+        "오디오북",
+        "ㅇㄹ"
+      ],
+      "category": "도서/구독",
+      "description": "친구 초대 시 1개월 무료 체험 쿠폰 추가 지급",
+      "app_url": "https://www.welaaa.com",
+      "icon_color": "#FF4500"
+    },
+    {
+      "id": "kakaopage",
+      "name_ko": "카카오페이지",
+      "name_en": "KakaoPage",
+      "aliases": [
+        "웹소설",
+        "카카페",
+        "ㅋㅋㅇㅍㅇㅈ"
+      ],
+      "category": "도서/구독",
+      "description": "친구 초대 시 최대 5,000캐시 뽑기권 지급",
+      "app_url": "https://page.kakao.com",
+      "icon_color": "#FEE500"
+    },
+    {
+      "id": "series",
+      "name_ko": "네이버 시리즈",
+      "name_en": "Naver Series",
+      "aliases": [
+        "쿠키",
+        "시리즈",
+        "ㅅㄹㅈ"
+      ],
+      "category": "도서/구독",
+      "description": "쿠키 충전 및 친구 초대 무료 쿠키 지급",
+      "app_url": "https://series.naver.com",
+      "icon_color": "#03C75A"
+    },
+    {
+      "id": "watcha",
+      "name_ko": "왓챠",
+      "name_en": "Watcha",
+      "aliases": [
+        "왓챠피디아",
+        "영화추천",
+        "ㅇㅊ"
+      ],
+      "category": "도서/구독",
+      "description": "친구 초대 시 2주 프리미엄 무료 이용권 증정",
+      "app_url": "https://watcha.com",
+      "icon_color": "#FF0558"
+    },
+    {
+      "id": "moyo",
+      "name_ko": "모요",
+      "name_en": "Moyo",
+      "aliases": [
+        "알뜰폰비교",
+        "모두의요금제",
+        "ㅁㅇ"
+      ],
+      "category": "금융/핀테크",
+      "description": "알뜰폰 개통 시 네이버페이 3만원 + 스타벅스 기프티콘",
+      "app_url": "https://www.moyo.plan",
+      "icon_color": "#2563EB"
+    },
+    {
+      "id": "toss_mobile",
+      "name_ko": "토스모바일",
+      "name_en": "Toss Mobile",
+      "aliases": [
+        "토스알뜰폰",
+        "ㅌㅅㅁㅂㅇ"
+      ],
+      "category": "금융/핀테크",
+      "description": "친구 추천으로 요금제 가입 시 토스포인트 캐시백",
+      "app_url": "https://toss.im/mobile",
+      "icon_color": "#0064FF"
+    },
+    {
+      "id": "freet",
+      "name_ko": "프리티",
+      "name_en": "FreeT",
+      "aliases": [
+        "프리텔레콤",
+        "알뜰폰",
+        "ㅍㄹƮ"
+      ],
+      "category": "라이프스타일",
+      "description": "친구 추천 셀프개통 시 신세계 상품권 1만원",
+      "app_url": "https://www.freet.co.kr",
+      "icon_color": "#E91E63"
+    },
+    {
+      "id": "notion",
+      "name_ko": "노션",
+      "name_en": "Notion",
+      "aliases": [
+        "노트",
+        "생산성",
+        "ㄴㅅ"
+      ],
+      "category": "라이프스타일",
+      "description": "추천인 링크 가입 시 $10 크레딧 지급",
+      "app_url": "https://www.notion.so",
+      "icon_color": "#000000"
+    },
+    {
+      "id": "canva",
+      "name_ko": "캔바",
+      "name_en": "Canva",
+      "aliases": [
+        "디자인",
+        "카드뉴스",
+        "ㅋㅂ"
+      ],
+      "category": "라이프스타일",
+      "description": "친구 초대 시 Canva Pro 프리미엄 요소 무료 이용권",
+      "app_url": "https://www.canva.com",
+      "icon_color": "#00C4CC"
+    },
+    {
+      "id": "apple",
+      "name_ko": "애플",
+      "name_en": "Apple",
+      "aliases": [
+        "아이폰",
+        "맥북",
+        "ㅇㅍ"
+      ],
+      "category": "쇼핑/이커머스",
+      "description": "학생 교육 할인 및 기기 구매 시 액세서리 쿠폰 제공",
+      "app_url": "https://www.apple.com/kr",
+      "icon_color": "#1C1C1E"
+    },
+    {
+      "id": "choco",
+      "name_ko": "초코",
+      "name_en": "Choco",
+      "aliases": [
+        "초콜릿",
+        "초코앱",
+        "ㅊㅋ"
+      ],
+      "category": "라이프스타일",
+      "description": "가입 시 웰컴 초콜릿 포인트 3,000P 지급",
+      "app_url": "https://choco.example.com",
+      "icon_color": "#8B5A2B"
+    }
+  ],
+  "referrals": [
+    {
+      "id": "ref_toss_1",
+      "app_id": "toss",
+      "code": "TOSS-LUCKY-777",
+      "nickname": "행운의토스",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_kakaobank_1",
+      "app_id": "kakaobank",
+      "code": "KBANK-LION-88",
+      "nickname": "라이언러버",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_kbank_1",
+      "app_id": "kbank",
+      "code": "KBANK-CASH-77",
+      "nickname": "케이왕자",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_shinhan_sol_1",
+      "app_id": "shinhan_sol",
+      "code": "SOL-PLUS-990",
+      "nickname": "신한매니아",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_kb_star_1",
+      "app_id": "kb_star",
+      "code": "KBSTAR-GOLD-55",
+      "nickname": "국민골드",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_naverpay_1",
+      "app_id": "naverpay",
+      "code": "NPAY-GREEN-77",
+      "nickname": "초록네페",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_kakaopay_1",
+      "app_id": "kakaopay",
+      "code": "KPAY-MONEY-99",
+      "nickname": "페이마스터",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_monimo_1",
+      "app_id": "monimo",
+      "code": "MONI-JELLY-99",
+      "nickname": "왕젤리",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_finda_1",
+      "app_id": "finda",
+      "code": "FINDA-LOAN-55",
+      "nickname": "핀다추천인",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_banksalad_1",
+      "app_id": "banksalad",
+      "code": "SALAD-DNA-77",
+      "nickname": "샐러드유전자",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_miraeasset_1",
+      "app_id": "miraeasset",
+      "code": "MIRAE-STOCK-100",
+      "nickname": "미국주식왕",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_kiwoom_1",
+      "app_id": "kiwoom",
+      "code": "KIWOOM-HERO-88",
+      "nickname": "영웅문러버",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_namu_1",
+      "app_id": "namu",
+      "code": "NAMU-TREE-33",
+      "nickname": "초록나무",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_koreainvestment_1",
+      "app_id": "koreainvestment",
+      "code": "HANTU-MINI-99",
+      "nickname": "한국투자",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_signalplanner_1",
+      "app_id": "signalplanner",
+      "code": "SIGNAL-COFFEE-12",
+      "nickname": "보험분석사",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_toss_securities_1",
+      "app_id": "toss_securities",
+      "code": "TOSS-STOCK-FREE",
+      "nickname": "랜덤주식러",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_coupang_1",
+      "app_id": "coupang",
+      "code": "COUP-ROCKET-99",
+      "nickname": "와우회원",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_aliexpress_1",
+      "app_id": "aliexpress",
+      "code": "ALI-SALE-8822",
+      "nickname": "직구고수",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_temu_1",
+      "app_id": "temu",
+      "code": "TEMU-GIFT-100",
+      "nickname": "테무선물",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_kurly_1",
+      "app_id": "kurly",
+      "code": "KURLY-FRESH-21",
+      "nickname": "보라컬리",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_oasis_1",
+      "app_id": "oasis",
+      "code": "OASIS-FRESH-10K",
+      "nickname": "유기농마켓",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_karrot_1",
+      "app_id": "karrot",
+      "code": "DAANGN-MANNA-33",
+      "nickname": "따뜻한온도",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_bungae_1",
+      "app_id": "bungae",
+      "code": "BUNGAE-FAST-99",
+      "nickname": "번개셀러",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_joonggonara_1",
+      "app_id": "joonggonara",
+      "code": "JOONGNA-SAFE-77",
+      "nickname": "중나평화",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_ohouse_1",
+      "app_id": "ohouse",
+      "code": "OHOUSE-ROOM-55",
+      "nickname": "인테리어장인",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_kream_1",
+      "app_id": "kream",
+      "code": "KREAM-SNEAK-33",
+      "nickname": "나이키매니아",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_soldout_1",
+      "app_id": "soldout",
+      "code": "SOLDOUT-VIP-88",
+      "nickname": "스니커헤드",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_iherb_1",
+      "app_id": "iherb",
+      "code": "IHERB-DISCOUNT-5P",
+      "nickname": "비타민매니아",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_elevenst_1",
+      "app_id": "elevenst",
+      "code": "11ST-PASS-77",
+      "nickname": "우주쇼퍼",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_gmarket_1",
+      "app_id": "gmarket",
+      "code": "GMARKET-SMILE-99",
+      "nickname": "스마일캐시",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_ssg_1",
+      "app_id": "ssg",
+      "code": "SSG-ROCKET-100",
+      "nickname": "쓱배송러",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_baemin_1",
+      "app_id": "baemin",
+      "code": "BAEMIN-YUMMY-77",
+      "nickname": "배민VIP",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_coupangeats_1",
+      "app_id": "coupangeats",
+      "code": "EATS-FAST-88",
+      "nickname": "치타배달",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_yogiyo_1",
+      "app_id": "yogiyo",
+      "code": "YOGI-PASS-12",
+      "nickname": "요기패스러버",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_ddangyo_1",
+      "app_id": "ddangyo",
+      "code": "DDANG-DISCOUNT-5K",
+      "nickname": "땡겨요러버",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_catchtable_1",
+      "app_id": "catchtable",
+      "code": "CATCH-RESERVE-77",
+      "nickname": "미식가",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_tabling_1",
+      "app_id": "tabling",
+      "code": "TABLING-LINE-99",
+      "nickname": "줄서기달인",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_starbucks_1",
+      "app_id": "starbucks",
+      "code": "STAR-COFFEE-BOGO",
+      "nickname": "아메리카노",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_marketit_1",
+      "app_id": "marketit",
+      "code": "MARKET-FOOD-5K",
+      "nickname": "맛집체험러",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_musinsa_1",
+      "app_id": "musinsa",
+      "code": "MUSINSA-OOTD-88",
+      "nickname": "패셔니스타",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_oliveyoung_1",
+      "app_id": "oliveyoung",
+      "code": "OLIVE-BEAUTY-77",
+      "nickname": "올영세일",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_ably_1",
+      "app_id": "ably",
+      "code": "ABLY-STYLE-99",
+      "nickname": "에이블리짱",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_zigzag_1",
+      "app_id": "zigzag",
+      "code": "ZIGZAG-DIRECT-11",
+      "nickname": "직진배송",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_29cm_1",
+      "app_id": "29cm",
+      "code": "29CM-SENSE-77",
+      "nickname": "감성쇼퍼",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_wconcept_1",
+      "app_id": "wconcept",
+      "code": "WCONCEPT-BRAND-12",
+      "nickname": "디자이너룩",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_brandi_1",
+      "app_id": "brandi",
+      "code": "BRANDI-FREE-100",
+      "nickname": "하루배송러",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_hiver_1",
+      "app_id": "hiver",
+      "code": "HIVER-MAN-55",
+      "nickname": "남친룩",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_queenit_1",
+      "app_id": "queenit",
+      "code": "QUEEN-STYLE-77",
+      "nickname": "우아한퀸",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_trenbe_1",
+      "app_id": "trenbe",
+      "code": "TRENBE-LUXURY-88",
+      "nickname": "명품러버",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_tiktok_lite_1",
+      "app_id": "tiktok_lite",
+      "code": "TIKTOK-CASH-77",
+      "nickname": "매일출석",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_cashwalk_1",
+      "app_id": "cashwalk",
+      "code": "CASH-WALK-1000",
+      "nickname": "만보걷기",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_cashdoc_1",
+      "app_id": "cashdoc",
+      "code": "CASHDOC-QUIZ-88",
+      "nickname": "퀴즈왕",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_challengers_1",
+      "app_id": "challengers",
+      "code": "CHLNG-HABIT-99",
+      "nickname": "미라클모닝",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_balosodeuk_1",
+      "app_id": "balosodeuk",
+      "code": "BALO-COIN-1000",
+      "nickname": "발로소득러",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_timespread_1",
+      "app_id": "timespread",
+      "code": "TIME-LOCK-55",
+      "nickname": "폰잠금러",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_moneywalk_1",
+      "app_id": "moneywalk",
+      "code": "MONEY-WALK-777",
+      "nickname": "만보러버",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_okcashbag_1",
+      "app_id": "okcashbag",
+      "code": "OKCASH-OROC-99",
+      "nickname": "오케이적립",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_panelnow_1",
+      "app_id": "panelnow",
+      "code": "PANEL-SURVEY-33",
+      "nickname": "설문조사왕",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_embrain_1",
+      "app_id": "embrain",
+      "code": "EMBRAIN-POWER-1",
+      "nickname": "리서치패널",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_surveylink_1",
+      "app_id": "surveylink",
+      "code": "SURVEY-MOVIE-77",
+      "nickname": "서베이러",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_yafit_1",
+      "app_id": "yafit",
+      "code": "YAFIT-RIDE-55",
+      "nickname": "라이더",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_upbit_1",
+      "app_id": "upbit",
+      "code": "UPBIT-COIN-777",
+      "nickname": "코인마스터",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_bithumb_1",
+      "app_id": "bithumb",
+      "code": "BITHUMB-PRO-88",
+      "nickname": "빗썸매니아",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_coinone_1",
+      "app_id": "coinone",
+      "code": "COINONE-VIP-99",
+      "nickname": "수수료페이백",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_korbit_1",
+      "app_id": "korbit",
+      "code": "KORBIT-BTC-10K",
+      "nickname": "비트코인홀더",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_gopax_1",
+      "app_id": "gopax",
+      "code": "GOPAX-BONUS-5K",
+      "nickname": "고팍스러버",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_binance_1",
+      "app_id": "binance",
+      "code": "BINANCE-FEE-20P",
+      "nickname": "바낸고수",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_bybit_1",
+      "app_id": "bybit",
+      "code": "BYBIT-BONUS-20P",
+      "nickname": "선물트레이더",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_bitget_1",
+      "app_id": "bitget",
+      "code": "BITGET-FEE-50P",
+      "nickname": "카피트레이더",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_okx_1",
+      "app_id": "okx",
+      "code": "OKX-BOX-10K",
+      "nickname": "미스터리박스",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_gateio_1",
+      "app_id": "gateio",
+      "code": "GATE-AIRDROP-20",
+      "nickname": "에어드랍헌터",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_yanolja_1",
+      "app_id": "yanolja",
+      "code": "YANO-STAY-55",
+      "nickname": "호캉스러버",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_goodchoice_1",
+      "app_id": "goodchoice",
+      "code": "GOOD-CHOICE-88",
+      "nickname": "여행러버",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_myrealtrip_1",
+      "app_id": "myrealtrip",
+      "code": "MYREAL-TOUR-5K",
+      "nickname": "자유여행러",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_agoda_1",
+      "app_id": "agoda",
+      "code": "AGODA-HOTEL-10P",
+      "nickname": "글로벌트래블",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_tripcom_1",
+      "app_id": "tripcom",
+      "code": "TRIP-FLIGHT-COIN",
+      "nickname": "항공권특가",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_klook_1",
+      "app_id": "klook",
+      "code": "KLOOK-PASS-3500",
+      "nickname": "액티비티러버",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_airbnb_1",
+      "app_id": "airbnb",
+      "code": "AIRBNB-STAY-CREDIT",
+      "nickname": "감성숙소",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_socar_1",
+      "app_id": "socar",
+      "code": "SOCAR-DRIVE-10K",
+      "nickname": "드라이버",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_greencar_1",
+      "app_id": "greencar",
+      "code": "GREEN-RENT-100",
+      "nickname": "그린드라이브",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_tmoney_go_1",
+      "app_id": "tmoney_go",
+      "code": "TMONEY-GO-500",
+      "nickname": "환승왕",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_ridi_1",
+      "app_id": "ridi",
+      "code": "RIDI-BOOK-77",
+      "nickname": "독서왕",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_millie_1",
+      "app_id": "millie",
+      "code": "MILLIE-READ-99",
+      "nickname": "밀리구독자",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_welaaa_1",
+      "app_id": "welaaa",
+      "code": "WELAAA-AUDIO-FREE",
+      "nickname": "귀로듣는책",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_kakaopage_1",
+      "app_id": "kakaopage",
+      "code": "PAGE-CASH-LUCKY",
+      "nickname": "웹소설매니아",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_series_1",
+      "app_id": "series",
+      "code": "SERIES-COOKIE-50",
+      "nickname": "쿠키굽는사람",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_watcha_1",
+      "app_id": "watcha",
+      "code": "WATCHA-PREMIUM-14",
+      "nickname": "영화광",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_moyo_1",
+      "app_id": "moyo",
+      "code": "MOYO-PLAN-30K",
+      "nickname": "알뜰폰박사",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_toss_mobile_1",
+      "app_id": "toss_mobile",
+      "code": "TOSS-MOB-CASH",
+      "nickname": "토스통신",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_freet_1",
+      "app_id": "freet",
+      "code": "FREET-SELF-10K",
+      "nickname": "프리티러버",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_notion_1",
+      "app_id": "notion",
+      "code": "NOTION-CREDIT-10",
+      "nickname": "생산성고수",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_canva_1",
+      "app_id": "canva",
+      "code": "CANVA-DESIGN-PRO",
+      "nickname": "디자인장인",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_apple_1",
+      "app_id": "apple",
+      "code": "APPL-KR-STUDENT-01",
+      "nickname": "맥북에어매니아",
+      "copy_count": 1
+    },
+    {
+      "id": "ref_choco_1",
+      "app_id": "choco",
+      "code": "CHOCO-SWEET-77",
+      "nickname": "달콤초코",
+      "copy_count": 1
+    }
+  ]
+};
 
     // 로컬 데이터 스토어 관리
     let localStore = null;
     function getLocalStore() {
       if (!localStore) {
-        const saved = localStorage.getItem('referral_data_store_v2');
+        const saved = localStorage.getItem('referral_data_store_v3');
         if (saved) {
           try { localStore = JSON.parse(saved); } catch(e){}
         }
-        if (!localStore || !localStore.apps || localStore.apps.length < 20) {
+        if (!localStore || !localStore.apps || localStore.apps.length < 80) {
           localStore = JSON.parse(JSON.stringify(SEED_DATA));
           saveLocalStore();
         }
@@ -409,7 +2310,7 @@
 
     function saveLocalStore() {
       if (localStore) {
-        localStorage.setItem('referral_data_store_v2', JSON.stringify(localStore));
+        localStorage.setItem('referral_data_store_v3', JSON.stringify(localStore));
       }
     }
 
