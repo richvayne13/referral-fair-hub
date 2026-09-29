@@ -207,3 +207,41 @@ class QueueManager:
                 "assigned_order": assigned_order,
                 "message": f"성공적으로 등록되었습니다! 현재 대기 순번: {assigned_order}순위"
             }
+
+    def register_new_app(self, name_ko: str, name_en: str, category: str, description: str = "", app_url: str = "") -> Dict[str, Any]:
+        with self.lock:
+            name_ko = name_ko.strip()
+            name_en = name_en.strip() or name_ko
+            category = category.strip() or "기타/서비스"
+
+            if not name_ko:
+                return {"success": False, "message": "앱 이름을 입력해 주세요."}
+
+            # 중복 체크
+            if any(a["name_ko"].lower() == name_ko.lower() for a in self.apps):
+                return {"success": False, "message": "이미 등록되어 있는 앱입니다."}
+
+            import re
+            slug = re.sub(r'[^a-zA-Z0-9]', '', name_en).lower()
+            if not slug or any(a["id"] == slug for a in self.apps):
+                slug = f"app_{int(datetime.now().timestamp())}"
+
+            new_app = {
+                "id": slug,
+                "name_ko": name_ko,
+                "name_en": name_en,
+                "aliases": [name_ko, name_en],
+                "category": category,
+                "description": description or f"{name_ko} 회원가입 및 추천인 혜택",
+                "app_url": app_url or "#",
+                "icon_color": "#4f46e5"
+            }
+
+            self.apps.append(new_app)
+            self.save_data_unlocked()
+
+            return {
+                "success": True,
+                "app": new_app,
+                "message": f"'{name_ko}' 앱이 성공적으로 등록되었습니다!"
+            }

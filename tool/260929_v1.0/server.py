@@ -143,6 +143,21 @@ class ReferralRequestHandler(BaseHTTPRequestHandler):
                 self.send_json(status_code, result)
                 return
 
+        # 3. 새로운 앱 자체를 등록: /api/apps/new
+        if path == "/api/apps/new":
+            name_ko = body.get("name_ko", "")
+            name_en = body.get("name_en", "")
+            category = body.get("category", "")
+            description = body.get("description", "")
+            app_url = body.get("app_url", "")
+            result = queue_mgr.register_new_app(name_ko, name_en, category, description, app_url)
+            if result.get("success"):
+                global search_engine
+                search_engine = SearchEngine(queue_mgr.apps)
+            status_code = 200 if result.get("success") else 400
+            self.send_json(status_code, result)
+            return
+
         self.send_error(404, "Endpoint Not Found")
 
 def run(port: int = 8080):

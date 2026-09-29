@@ -1,5 +1,5 @@
 """
-스마트 한글 초성 및 다국어 검색 엔진 (search_engine.py)
+스마트 한글 초성 및 별칭(Aliases) 다국어 검색 엔진 (search_engine.py)
 """
 
 from typing import List, Dict, Any
@@ -27,17 +27,11 @@ class SearchEngine:
         for app in apps:
             app_copy = dict(app)
             app_copy["chosung_ko"] = extract_chosung(app.get("name_ko", ""))
-            app_copy["search_haystack"] = f"{app.get('name_ko', '')} {app.get('name_en', '')} {app.get('category', '')}".lower()
+            aliases = app.get("aliases", [])
+            app_copy["aliases_chosung"] = [extract_chosung(a) for a in aliases]
             self.apps.append(app_copy)
 
-    def search(self, query: str, limit: int = 10) -> List[Dict[str, Any]]:
-        """
-        검색어를 기반으로 실시간 매칭 및 관련도 순 정렬
-        우선순위:
-        1. 한글/영문 접두사 정확 일치
-        2. 초성 정확 일치
-        3. 부분 포함 일치
-        """
+    def search(self, query: str, limit: int = 12) -> List[Dict[str, Any]]:
         q = query.strip().lower()
         if not q:
             return self.apps[:limit]
@@ -48,32 +42,46 @@ class SearchEngine:
             name_ko = app.get("name_ko", "").lower()
             name_en = app.get("name_en", "").lower()
             chosung = app.get("chosung_ko", "")
+            aliases = [a.lower() for a in app.get("aliases", [])]
+            aliases_chosung = app.get("aliases_chosung", [])
 
-            # 1. 영문 접두사 일치 (예: 'a' -> 'apple')
-            if name_en.startswith(q):
-                score += 100
-            elif q in name_en:
-                score += 50
+            # 1. 한글/영문 접두사 및 완전 일치
+            if name_ko == q or name_en == q:
+                score += 200
+            elif name_ko.startswith(q) or name_en.startswith(q):
+                score += 120
+            elif q in name_ko or q in name_en:
+                score += 60
 
-            # 2. 한글 음절 접두사 일치 (예: '초' -> '초코')
-            if name_ko.startswith(q):
-                score += 100
-            elif q in name_ko:
-                score += 50
+            # 2. 별칭(Aliases) 일치 (예: '배민' -> 배달의민족, '카뱅' -> 카카오뱅크)
+            for alias in aliases:
+                if alias == q:
+                    score += 180
+                elif alias.startswith(q):
+                    score += 100
+                elif q in alias:
+                    score += 50
 
-            # 3. 한글 초성 검색 일치 (예: 'ㅊㅋ' -> '초코')
-            if chosung.startswith(q):
+            # 3. 한글 초성 검색 일치 (예: 'ㅊㅋ' -> 초코, 'ㅂㅁ' -> 배민, 'ㅌㅅ' -> 토스)
+            if chosung == q:
+                score += 150
+            elif chosung.startswith(q):
                 score += 90
             elif q in chosung:
                 score += 40
 
-            # 4. 카테고리 또는 설명 매칭
+            for ac in aliases_chosung:
+                if ac == q:
+                    score += 140
+                elif ac.startswith(q):
+                    score += 80
+
+            # 4. 카테고리 매칭
             if q in app.get("category", "").lower():
-                score += 20
+                score += 30
 
             if score > 0:
                 results.append((score, app))
 
-        # 점수 내림차순 정렬
         results.sort(key=lambda x: x[0], reverse=True)
         return [item[1] for item in results[:limit]]

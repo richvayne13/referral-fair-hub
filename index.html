@@ -12,7 +12,7 @@
     @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
     * { font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif; }
     .glassmorphism {
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(229, 231, 235, 0.8);
     }
@@ -39,15 +39,19 @@
           <span class="ml-2 text-xs font-semibold px-2 py-0.5 bg-indigo-50 text-indigo-700 rounded-full border border-indigo-200">100% 공정 품앗이</span>
         </div>
       </div>
-      <div class="flex items-center space-x-3 text-sm text-slate-600">
-        <a href="https://github.com/richvayne13/referral-fair-hub" target="_blank" class="flex items-center text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
-          <i class="fa-brands fa-github text-sm mr-1.5"></i>GitHub 저장소
+      <div class="flex items-center space-x-2">
+        <button onclick="openNewAppModal()" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-sm transition flex items-center space-x-1.5">
+          <i class="fa-solid fa-plus"></i>
+          <span>새 앱 등록</span>
+        </button>
+        <a href="https://github.com/richvayne13/referral-fair-hub" target="_blank" class="hidden sm:flex items-center text-xs font-semibold px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+          <i class="fa-brands fa-github text-sm mr-1.5"></i>GitHub
         </a>
       </div>
     </div>
   </header>
 
-  <!-- 메인 히어로 & 검색 섹션 -->
+  <!-- 메인 본문 -->
   <main class="flex-grow max-w-5xl mx-auto px-4 py-8 w-full">
     
     <!-- 타이틀 배너 -->
@@ -62,7 +66,7 @@
     </section>
 
     <!-- 스마트 실시간 검색바 -->
-    <section class="relative max-w-2xl mx-auto mb-10">
+    <section class="relative max-w-2xl mx-auto mb-6">
       <div class="relative shadow-lg rounded-2xl">
         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
           <i class="fa-solid fa-magnifying-glass text-lg"></i>
@@ -71,9 +75,10 @@
           type="text" 
           id="searchInput"
           class="w-full pl-12 pr-10 py-4 bg-white border-2 border-indigo-100 rounded-2xl text-slate-800 text-base placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition duration-150"
-          placeholder="앱이나 사이트를 검색하세요 (예: 초코, a, apple, ㅊㅋ, 토스)"
+          placeholder="앱 이름을 검색하세요 (예: 배민, 카뱅, 알리, 토스, 쿠팡, 올영, ㅊㅋ, a)"
           autocomplete="off"
           oninput="handleSearchInput(event)"
+          onkeydown="handleSearchKeydown(event)"
         />
         <button 
           id="clearSearchBtn" 
@@ -87,18 +92,34 @@
       <div id="autocompleteDropdown" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-40 max-h-80 overflow-y-auto">
       </div>
 
-      <!-- 추천 검색어 칩 -->
-      <div class="flex flex-wrap items-center justify-center gap-2 mt-3 text-xs text-slate-500">
-        <span class="font-medium text-slate-400">추천 검색:</span>
-        <button onclick="quickSearch('초코')" class="px-2.5 py-1 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 rounded-lg transition font-medium text-slate-700">초코</button>
-        <button onclick="quickSearch('a')" class="px-2.5 py-1 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 rounded-lg transition font-medium text-slate-700">a (Apple)</button>
-        <button onclick="quickSearch('ㅊㅋ')" class="px-2.5 py-1 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 rounded-lg transition font-medium text-slate-700">ㅊㅋ (초성)</button>
+      <!-- 인기 퀵 검색 태그 -->
+      <div class="flex flex-wrap items-center justify-center gap-1.5 mt-3 text-xs text-slate-500">
+        <span class="font-medium text-slate-400 mr-1">인기 검색:</span>
         <button onclick="quickSearch('토스')" class="px-2.5 py-1 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 rounded-lg transition font-medium text-slate-700">토스</button>
-        <button onclick="quickSearch('크림')" class="px-2.5 py-1 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 rounded-lg transition font-medium text-slate-700">크림</button>
+        <button onclick="quickSearch('배민')" class="px-2.5 py-1 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 rounded-lg transition font-medium text-slate-700">배민</button>
+        <button onclick="quickSearch('카뱅')" class="px-2.5 py-1 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 rounded-lg transition font-medium text-slate-700">카뱅</button>
+        <button onclick="quickSearch('쿠팡')" class="px-2.5 py-1 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 rounded-lg transition font-medium text-slate-700">쿠팡</button>
+        <button onclick="quickSearch('알리')" class="px-2.5 py-1 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 rounded-lg transition font-medium text-slate-700">알리</button>
+        <button onclick="quickSearch('올영')" class="px-2.5 py-1 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 rounded-lg transition font-medium text-slate-700">올영</button>
+        <button onclick="quickSearch('틱라')" class="px-2.5 py-1 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 rounded-lg transition font-medium text-slate-700">틱톡라이트</button>
+        <button onclick="quickSearch('초코')" class="px-2.5 py-1 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 rounded-lg transition font-medium text-slate-700">초코</button>
+        <button onclick="quickSearch('ㅊㅋ')" class="px-2.5 py-1 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 rounded-lg transition font-medium text-slate-700">ㅊㅋ(초성)</button>
+        <button onclick="quickSearch('a')" class="px-2.5 py-1 bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 rounded-lg transition font-medium text-slate-700">a(Apple)</button>
       </div>
     </section>
 
-    <!-- 앱 상세 / 추천인 대기실 카드 -->
+    <!-- 카테고리 필터 탭 -->
+    <section class="max-w-2xl mx-auto mb-8 flex items-center justify-center gap-1.5 overflow-x-auto pb-1 text-xs">
+      <button onclick="filterCategory('전체')" class="category-tab active px-3 py-1.5 rounded-full font-bold bg-indigo-600 text-white transition shadow-sm" data-category="전체">전체</button>
+      <button onclick="filterCategory('금융/핀테크')" class="category-tab px-3 py-1.5 rounded-full font-semibold bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition" data-category="금융/핀테크">금융/핀테크</button>
+      <button onclick="filterCategory('쇼핑/이커머스')" class="category-tab px-3 py-1.5 rounded-full font-semibold bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition" data-category="쇼핑/이커머스">쇼핑</button>
+      <button onclick="filterCategory('음식배달')" class="category-tab px-3 py-1.5 rounded-full font-semibold bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition" data-category="음식배달">배달/음식</button>
+      <button onclick="filterCategory('패션/뷰티')" class="category-tab px-3 py-1.5 rounded-full font-semibold bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition" data-category="패션/뷰티">패션/뷰티</button>
+      <button onclick="filterCategory('가상자산/재테크')" class="category-tab px-3 py-1.5 rounded-full font-semibold bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition" data-category="가상자산/재테크">가상자산</button>
+      <button onclick="filterCategory('앱테크')" class="category-tab px-3 py-1.5 rounded-full font-semibold bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition" data-category="앱테크">앱테크</button>
+    </section>
+
+    <!-- 앱 상세 / 추천인 대기실 카드 (선택 시 활성화) -->
     <section id="appDetailSection" class="hidden mb-12">
       <div class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
         
@@ -128,7 +149,7 @@
             <span class="inline-flex items-center text-xs font-bold px-3 py-1 bg-indigo-600 text-white rounded-full uppercase tracking-wider shadow-sm">
               <i class="fa-solid fa-crown mr-1.5 text-amber-300"></i>현재 1순위 추천인 (지금 복사할 대상)
             </span>
-            <span id="detailQueueStats" class="text-xs font-medium text-slate-500">대기 중 3명</span>
+            <span id="detailQueueStats" class="text-xs font-medium text-slate-500">대기 중 0명</span>
           </div>
 
           <div id="heroCodeCard" class="bg-white rounded-2xl border-2 border-indigo-500/40 p-6 shadow-md flex flex-col md:flex-row items-center justify-between gap-6 pulse-glow">
@@ -173,11 +194,11 @@
             <h3 class="text-base font-bold text-slate-900 mb-1 flex items-center">
               <i class="fa-solid fa-user-plus text-emerald-600 mr-2"></i>내 추천인 코드 등록 (줄서기)
             </h3>
-            <p class="text-xs text-slate-500 mb-4">등록하시면 대기열 맨 끝에 배치되며, 순서가 오면 1순위로 승격됩니다.</p>
+            <p class="text-xs text-slate-500 mb-4">등록하시면 대기열 맨 끝에 배치되며, 앞선 순서가 복사되면 1순위로 승격됩니다.</p>
             
             <form onsubmit="handleRegisterCode(event)" class="space-y-3">
               <div>
-                <label class="block text-xs font-semibold text-slate-700 mb-1">추천인 코드</label>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">내 추천인 코드 / 초대 링크</label>
                 <input 
                   type="text" 
                   id="regCodeInput" 
@@ -187,7 +208,7 @@
                 />
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-700 mb-1">닉네임</label>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">등록자 닉네임</label>
                 <input 
                   type="text" 
                   id="regNickInput" 
@@ -211,13 +232,14 @@
       </div>
     </section>
 
-    <!-- 전체 앱 둘러보기 그리드 -->
+    <!-- 전체 앱 둘러보기 그리드 (실시간 검색 시에도 필터링됨) -->
     <section id="allAppsSection">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-bold text-slate-900">
-          <i class="fa-solid fa-fire text-amber-500 mr-2"></i>인기 앱 & 카테고리
+        <h2 class="text-lg font-bold text-slate-900 flex items-center">
+          <i class="fa-solid fa-fire text-amber-500 mr-2"></i>
+          <span id="gridTitle">인기 앱 추천인 대기실</span>
         </h2>
-        <span class="text-xs text-slate-500" id="appsCountLabel">10개 서비스 등록됨</span>
+        <span class="text-xs text-slate-500" id="appsCountLabel">0개 서비스 등록됨</span>
       </div>
       <div id="appsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       </div>
@@ -246,6 +268,57 @@
 
   </main>
 
+  <!-- 새 앱 등록 모달 -->
+  <div id="newAppModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 animate-scale-up">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-lg font-bold text-slate-900 flex items-center">
+          <i class="fa-solid fa-mobile-screen-button text-indigo-600 mr-2"></i>새로운 앱/서비스 추가
+        </h3>
+        <button onclick="closeNewAppModal()" class="text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <p class="text-xs text-slate-500 mb-4">원하는 서비스가 목록에 없다면 직접 등록해 보세요! 누구나 추천인 코드를 공유할 수 있습니다.</p>
+      
+      <form onsubmit="handleCreateNewApp(event)" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">앱/서비스 이름 (한글) *</label>
+          <input type="text" id="modalAppNameKo" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-indigo-500" placeholder="예: 무신사, 야놀자, 빗썸" required />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">영문 이름 또는 별칭</label>
+          <input type="text" id="modalAppNameEn" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-indigo-500" placeholder="예: Musinsa, Yanolja" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">카테고리</label>
+          <select id="modalAppCategory" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-indigo-500">
+            <option value="금융/핀테크">금융/핀테크</option>
+            <option value="쇼핑/이커머스">쇼핑/이커머스</option>
+            <option value="음식배달">음식배달</option>
+            <option value="패션/뷰티">패션/뷰티</option>
+            <option value="가상자산/재테크">가상자산/재테크</option>
+            <option value="앱테크/리워드">앱테크/리워드</option>
+            <option value="여행/숙박">여행/숙박</option>
+            <option value="라이프스타일" selected>라이프스타일</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">추천인 혜택 요약</label>
+          <input type="text" id="modalAppDesc" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-indigo-500" placeholder="예: 가입 시 5,000원 할인 쿠폰 지급" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">공식 웹사이트/앱 URL</label>
+          <input type="url" id="modalAppUrl" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-indigo-500" placeholder="https://" />
+        </div>
+        <div class="pt-2 flex space-x-2">
+          <button type="button" onclick="closeNewAppModal()" class="w-1/2 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold rounded-xl transition">취소</button>
+          <button type="submit" class="w-1/2 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl transition shadow">등록하기</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- 하단 푸터 -->
   <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
     <p>© 2026 추천인.com · 공정한 추천인 품앗이 커뮤니티 · 모든 추천인 코드는 선입선출 큐로 투명하게 순환됩니다.</p>
@@ -264,45 +337,69 @@
     </div>
   </div>
 
-  <!-- 프론트엔드 하이브리드(클라이언트+서버) 로직 -->
+  <!-- 프론트엔드 자바스크립트 엔진 -->
   <script>
-    // 내장 기본 데이터 (GitHub Pages 등 정적 호스팅 시 완벽 동작 보장)
+    // 32개 기본 초인기 앱 시드 데이터 (별칭 포함)
     const SEED_DATA = {
       apps: [
-        { id: "choco", name_ko: "초코", name_en: "Choco", category: "라이프스타일", description: "가입 시 웰컴 초콜릿 포인트 3,000P 지급", app_url: "https://choco.example.com", icon_color: "#8B5A2B" },
-        { id: "apple", name_ko: "애플", name_en: "Apple", category: "쇼핑/디지털", description: "학생 교육 할인 및 기기 구매 시 액세서리 쿠폰 제공", app_url: "https://www.apple.com/kr", icon_color: "#1C1C1E" },
-        { id: "toss", name_ko: "토스", name_en: "Toss", category: "금융/핀테크", description: "친구 초대 시 둘 다 최대 5,000원 랜덤 포인트 증정", app_url: "https://toss.im", icon_color: "#0064FF" },
-        { id: "coupang", name_ko: "쿠팡", name_en: "Coupang", category: "쇼핑/이커머스", description: "로켓와우 첫 달 무료 체험 및 5천원 캐시백", app_url: "https://www.coupang.com", icon_color: "#E30613" },
-        { id: "kream", name_ko: "크림", name_en: "KREAM", category: "패션/한정판", description: "회원가입 시 2,000 포인트 즉시 적립", app_url: "https://kream.co.kr", icon_color: "#222222" },
-        { id: "kurly", name_ko: "컬리", name_en: "Kurly", category: "신선식품/배송", description: "친구 초대 시 첫 주문 완료 후 적립금 5,000원", app_url: "https://www.kurly.com", icon_color: "#5F0080" },
-        { id: "temu", name_ko: "테무", name_en: "Temu", category: "쇼핑/해외직구", description: "신규 앱 설치 시 10만원 상당 쿠폰팩 지급", app_url: "https://www.temu.com", icon_color: "#FB7701" },
-        { id: "kbank", name_ko: "케이뱅크", name_en: "K-Bank", category: "금융/인터넷은행", description: "행운상자 열고 최대 10만원 현금 당첨 기회", app_url: "https://www.kbanknow.com", icon_color: "#00186B" },
-        { id: "coinone", name_ko: "코인원", name_en: "Coinone", category: "가상자산", description: "거래 수수료 평생 20% 페이백 혜택", app_url: "https://coinone.co.kr", icon_color: "#1F53FF" },
-        { id: "baemin", name_ko: "배달의민족", name_en: "Baemin", category: "음식배달", description: "첫 주문 1만원 할인 쿠폰 제공", app_url: "https://baemin.com", icon_color: "#2AC1BC" }
+        { id: "toss", name_ko: "토스", name_en: "Toss", aliases: ["토스뱅크", "토스증권", "ㅌㅅ"], category: "금융/핀테크", description: "친구 초대 시 둘 다 최대 5,000원 랜덤 포인트 증정", app_url: "https://toss.im", icon_color: "#0064FF" },
+        { id: "kakaobank", name_ko: "카카오뱅크", name_en: "KakaoBank", aliases: ["카뱅", "카카오", "ㅋㅂ", "ㅋㅋㅇㅂㅋ"], category: "금융/핀테크", description: "모임통장 및 26주적금 개설 시 캐시백 혜택", app_url: "https://www.kakaobank.com", icon_color: "#FEE500" },
+        { id: "kbank", name_ko: "케이뱅크", name_en: "K-Bank", aliases: ["케이", "케뱅", "ㅋㅇㅂㅋ"], category: "금융/핀테크", description: "행운상자 열고 최대 10만원 현금 당첨 기회", app_url: "https://www.kbanknow.com", icon_color: "#00186B" },
+        { id: "shinhan_sol", name_ko: "신한 SOL", name_en: "Shinhan SOL", aliases: ["신한은행", "신한쏠", "쏠", "ㅅㅎ"], category: "금융/핀테크", description: "신규 계좌 개설 시 마이신한포인트 즉시 지급", app_url: "https://www.shinhan.com", icon_color: "#0046FF" },
+        { id: "kb_star", name_ko: "KB스타뱅킹", name_en: "KB Star", aliases: ["국민은행", "국민", "스타뱅킹", "ㄱㅁ"], category: "금융/핀테크", description: "스타뱅킹 가입 시 스타프렌즈 적립금 제공", app_url: "https://www.kbstar.com", icon_color: "#FFBC00" },
+        { id: "naverpay", name_ko: "네이버페이", name_en: "Naver Pay", aliases: ["네페", "네이버", "ㄴㅇㅂ"], category: "금융/핀테크", description: "초대 링크로 가입 시 네이버페이 포인트 5,000P", app_url: "https://pay.naver.com", icon_color: "#03C75A" },
+        { id: "monimo", name_ko: "모니모", name_en: "Monimo", aliases: ["삼성모니모", "삼성금융", "ㅁㄴㅁ"], category: "앱테크", description: "가입 시 젤리 및 스페셜 젤리(최대 3만원) 지급", app_url: "https://www.monimo.com", icon_color: "#1428A0" },
+        { id: "coupang", name_ko: "쿠팡", name_en: "Coupang", aliases: ["로켓배송", "로켓와우", "ㅋㅍ"], category: "쇼핑/이커머스", description: "로켓와우 첫 달 무료 체험 및 5천원 캐시백", app_url: "https://www.coupang.com", icon_color: "#E30613" },
+        { id: "aliexpress", name_ko: "알리익스프레스", name_en: "AliExpress", aliases: ["알리", "알리익스", "ㅇㄹ", "ㅇㄹㅇㅅㅍㄹㅅ"], category: "쇼핑/이커머스", description: "신규 가입 시 100원 딜 및 웰컴 쿠폰팩 4종", app_url: "https://ko.aliexpress.com", icon_color: "#FF4747" },
+        { id: "temu", name_ko: "테무", name_en: "Temu", aliases: ["티무", "ㅌㅁ"], category: "쇼핑/이커머스", description: "신규 앱 설치 시 10만원 상당 쿠폰팩 및 무료 선물 혜택", app_url: "https://www.temu.com", icon_color: "#FB7701" },
+        { id: "kurly", name_ko: "컬리", name_en: "Kurly", aliases: ["마켓컬리", "ㅋㄹ", "ㅁㅋㅋㄹ"], category: "쇼핑/이커머스", description: "친구 초대 시 첫 주문 완료 후 적립금 5,000원", app_url: "https://www.kurly.com", icon_color: "#5F0080" },
+        { id: "karrot", name_ko: "당근", name_en: "Karrot", aliases: ["당근마켓", "ㄷㄱ", "ㄷㄱㅁㅋ"], category: "쇼핑/이커머스", description: "동네 인증 및 친구 초대 시 당근머니 지급", app_url: "https://www.daangn.com", icon_color: "#FF6F0F" },
+        { id: "ohouse", name_ko: "오늘의집", name_en: "Ohouse", aliases: ["오하우스", "ㅇㄴㅇㅈ"], category: "쇼핑/이커머스", description: "친구 초대 코드 입력 시 5,000원 즉시 할인 쿠폰", app_url: "https://ohou.se", icon_color: "#35C5F0" },
+        { id: "baemin", name_ko: "배달의민족", name_en: "Baemin", aliases: ["배민", "배민원", "ㅂㅁ", "ㅂㄷㅇㅁㅈ"], category: "음식배달", description: "첫 주문 시 1만원 상당 웰컴 쿠폰팩 증정", app_url: "https://baemin.com", icon_color: "#2AC1BC" },
+        { id: "coupangeats", name_ko: "쿠팡이츠", name_en: "Coupang Eats", aliases: ["쿠이", "쿠팡배달", "ㅋㅇ", "ㅋㅍㅇㅊ"], category: "음식배달", description: "와우회원 무제한 무료배달 및 5천원 할인 쿠폰", app_url: "https://www.coupangeats.com", icon_color: "#00A5FF" },
+        { id: "yogiyo", name_ko: "요기요", name_en: "Yogiyo", aliases: ["요기패스", "ㅇㄱㅇ"], category: "음식배달", description: "첫 주문 시 최대 1만원 즉시 할인", app_url: "https://www.yogiyo.co.kr", icon_color: "#FA0050" },
+        { id: "kream", name_ko: "크림", name_en: "KREAM", aliases: ["크림스니커즈", "한정판", "ㅋㄹ"], category: "패션/뷰티", description: "회원가입 시 2,000 포인트 즉시 적립", app_url: "https://kream.co.kr", icon_color: "#222222" },
+        { id: "musinsa", name_ko: "무신사", name_en: "Musinsa", aliases: ["무탠다드", "ㅁㅅㅅ"], category: "패션/뷰티", description: "친구 초대 시 둘 다 적립금 1,000원 + 첫 구매 할인 쿠폰", app_url: "https://www.musinsa.com", icon_color: "#000000" },
+        { id: "oliveyoung", name_ko: "올리브영", name_en: "Olive Young", aliases: ["올영", "올리브", "ㅇㄹㅂㅇ", "ㅇㅇ"], category: "패션/뷰티", description: "신규 가입 시 4천원 할인 쿠폰 및 올영세일 적립금", app_url: "https://www.oliveyoung.co.kr", icon_color: "#94C11F" },
+        { id: "ably", name_ko: "에이블리", name_en: "Ably", aliases: ["에블", "ㅇㅇㅂㄹ"], category: "패션/뷰티", description: "신규 가입 시 5,000원 쿠폰팩 즉시 발급", app_url: "https://m.a-bly.com", icon_color: "#FF4975" },
+        { id: "zigzag", name_ko: "지그재그", name_en: "Zigzag", aliases: ["직잭", "ㅈㄱㅈㄱ"], category: "패션/뷰티", description: "첫 구매 20% 할인 쿠폰 및 직진배송 무료배송", app_url: "https://zigzag.kr", icon_color: "#FF2D78" },
+        { id: "tiktok_lite", name_ko: "틱톡 라이트", name_en: "TikTok Lite", aliases: ["틱톡", "틱라", "ㅌㅌ", "ㅌㅌㄹㅇㅌ"], category: "앱테크", description: "친구 초대 출석 시 최대 3만원 상당 현금 포인트 지급", app_url: "https://lite.tiktok.com", icon_color: "#FE2C55" },
+        { id: "cashwalk", name_ko: "캐시워크", name_en: "Cashwalk", aliases: ["캐워크", "만보기", "ㅋㅅㅇㅋ"], category: "앱테크", description: "추천인 코드 입력 시 1,000캐시 즉시 지급", app_url: "https://cashwalk.com", icon_color: "#FFD000" },
+        { id: "upbit", name_ko: "업비트", name_en: "Upbit", aliases: ["비트코인", "두나무", "ㅇㅂㅌ"], category: "가상자산/재테크", description: "케이뱅크 실명계좌 연동 및 첫 거래 이벤트", app_url: "https://upbit.com", icon_color: "#093687" },
+        { id: "bithumb", name_ko: "빗썸", name_en: "Bithumb", aliases: ["빗섬", "ㅂㅅ"], category: "가상자산/재테크", description: "신규 가입 시 2만원 상당 웰컴 가상자산 지급", app_url: "https://www.bithumb.com", icon_color: "#F37321" },
+        { id: "coinone", name_ko: "코인원", name_en: "Coinone", aliases: ["코인", "ㅋㅇㅇ"], category: "가상자산/재테크", description: "거래 수수료 평생 20% 페이백 혜택", app_url: "https://coinone.co.kr", icon_color: "#1F53FF" },
+        { id: "yanolja", name_ko: "야놀자", name_en: "Yanolja", aliases: ["숙박", "여행", "ㅇㄴㅈ"], category: "여행/숙박", description: "친구 초대 시 코인 2,000P 및 5만원 쿠폰팩", app_url: "https://www.yanolja.com", icon_color: "#FF0055" },
+        { id: "goodchoice", name_ko: "여기어때", name_en: "Good Choice", aliases: ["여기", "숙소", "ㅇㄱㅇㄸ"], category: "여행/숙박", description: "신규 가입 총 15만원 쿠폰팩 + 친구 추천 포인트", app_url: "https://www.goodchoice.kr", icon_color: "#F7323F" },
+        { id: "ridi", name_ko: "리디", name_en: "Ridi", aliases: ["리디북스", "웹툰", "ㄹㄷ"], category: "도서/구독", description: "친구 초대 시 리디캐시 포인트 즉시 지급", app_url: "https://ridibooks.com", icon_color: "#1F8CE6" },
+        { id: "millie", name_ko: "밀리의서재", name_en: "Millie", aliases: ["밀리", "전자책", "ㅁㄹㅇㅅㅈ"], category: "도서/구독", description: "첫 달 무료 구독 및 친구 초대 1개월 추가 연장", app_url: "https://www.millie.co.kr", icon_color: "#FFEB00" },
+        { id: "choco", name_ko: "초코", name_en: "Choco", aliases: ["초콜릿", "초코앱", "ㅊㅋ"], category: "라이프스타일", description: "가입 시 웰컴 초콜릿 포인트 3,000P 지급", app_url: "https://choco.example.com", icon_color: "#8B5A2B" },
+        { id: "apple", name_ko: "애플", name_en: "Apple", aliases: ["아이폰", "맥북", "ㅇㅍ"], category: "쇼핑/이커머스", description: "학생 교육 할인 및 기기 구매 시 액세서리 쿠폰 제공", app_url: "https://www.apple.com/kr", icon_color: "#1C1C1E" }
       ],
       referrals: [
-        { id: "ref_choco_1", app_id: "choco", code: "CHOCO-SWEET-77", nickname: "달콤초코", copy_count: 0 },
-        { id: "ref_choco_2", app_id: "choco", code: "CHOCO-KING-99", nickname: "초코왕자", copy_count: 0 },
-        { id: "ref_choco_3", app_id: "choco", code: "CHOCO-LOVER-21", nickname: "가나다라", copy_count: 0 },
-        { id: "ref_apple_1", app_id: "apple", code: "APPL-KR-STUDENT-01", nickname: "맥북에어매니아", copy_count: 1 },
-        { id: "ref_apple_2", app_id: "apple", code: "APPL-VIP-8822", nickname: "스티브잡스팬", copy_count: 0 },
-        { id: "ref_toss_1", app_id: "toss", code: "TOSS-LUCKY-777", nickname: "행운의토스", copy_count: 2 },
-        { id: "ref_toss_2", app_id: "toss", code: "TOSS-FAST-100", nickname: "파란통장", copy_count: 0 },
-        { id: "ref_kream_1", app_id: "kream", code: "KREAM-SNEAK-33", nickname: "나이키매니아", copy_count: 0 }
+        { id: "ref_toss_1", app_id: "toss", code: "TOSS-LUCKY-777", nickname: "행운의토스", copy_count: 5 },
+        { id: "ref_kakaobank_1", app_id: "kakaobank", code: "KBANK-LION-88", nickname: "라이언러버", copy_count: 3 },
+        { id: "ref_kbank_1", app_id: "kbank", code: "KBANK-CASH-77", nickname: "케이왕자", copy_count: 4 },
+        { id: "ref_coupang_1", app_id: "coupang", code: "COUP-ROCKET-99", nickname: "와우회원", copy_count: 7 },
+        { id: "ref_aliexpress_1", app_id: "aliexpress", code: "ALI-SALE-8822", nickname: "직구고수", copy_count: 4 },
+        { id: "ref_baemin_1", app_id: "baemin", code: "BAEMIN-YUMMY-77", nickname: "배민VIP", copy_count: 9 },
+        { id: "ref_musinsa_1", app_id: "musinsa", code: "MUSINSA-OOTD-88", nickname: "패셔니스타", copy_count: 6 },
+        { id: "ref_oliveyoung_1", app_id: "oliveyoung", code: "OLIVE-BEAUTY-77", nickname: "올영세일", copy_count: 4 },
+        { id: "ref_tiktok_lite_1", app_id: "tiktok_lite", code: "TIKTOK-CASH-77", nickname: "매일출석", copy_count: 12 },
+        { id: "ref_upbit_1", app_id: "upbit", code: "UPBIT-COIN-777", nickname: "코인마스터", copy_count: 3 },
+        { id: "ref_choco_1", app_id: "choco", code: "CHOCO-SWEET-77", nickname: "달콤초코", copy_count: 3 },
+        { id: "ref_apple_1", app_id: "apple", code: "APPL-KR-STUDENT-01", nickname: "맥북에어매니아", copy_count: 2 }
       ]
     };
 
-    // 로컬 스토리지 데이터 초기화
-    let isServerMode = false;
+    // 로컬 데이터 스토어 관리
     let localStore = null;
-
     function getLocalStore() {
       if (!localStore) {
-        const saved = localStorage.getItem('referral_data_store');
+        const saved = localStorage.getItem('referral_data_store_v2');
         if (saved) {
           try { localStore = JSON.parse(saved); } catch(e){}
         }
-        if (!localStore) {
+        if (!localStore || !localStore.apps || localStore.apps.length < 20) {
           localStore = JSON.parse(JSON.stringify(SEED_DATA));
           saveLocalStore();
         }
@@ -312,13 +409,14 @@
 
     function saveLocalStore() {
       if (localStore) {
-        localStorage.setItem('referral_data_store', JSON.stringify(localStore));
+        localStorage.setItem('referral_data_store_v2', JSON.stringify(localStore));
       }
     }
 
     // 한글 초성 분해 알고리즘
     const CHOSUNG = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
     function extractChosung(str) {
+      if (!str) return '';
       let res = '';
       for (let i = 0; i < str.length; i++) {
         const c = str.charCodeAt(i);
@@ -332,41 +430,29 @@
       return res;
     }
 
+    let isServerMode = false;
     let currentAppId = null;
     let currentTopCodeData = null;
     let searchDebounce = null;
+    let currentCategory = '전체';
+    let currentSearchQuery = '';
 
     window.addEventListener('DOMContentLoaded', async () => {
-      // 서버 API 지원 여부 확인
+      // 로컬/서버 모드 판별
       try {
         const res = await fetch('/api/apps');
         if (res.ok) isServerMode = true;
-      } catch (e) {
-        isServerMode = false;
-      }
+      } catch(e) { isServerMode = false; }
 
-      loadAllApps();
+      refreshGrid();
 
       const urlParams = new URLSearchParams(window.location.search);
       const appParam = urlParams.get('app');
       if (appParam) selectApp(appParam);
     });
 
-    async function loadAllApps() {
-      let apps = [];
-      if (isServerMode) {
-        try {
-          const res = await fetch('/api/apps');
-          apps = await res.json();
-        } catch (e) { apps = getLocalAppsEnriched(); }
-      } else {
-        apps = getLocalAppsEnriched();
-      }
-      renderAppsGrid(apps);
-      document.getElementById('appsCountLabel').textContent = `${apps.length}개 서비스 등록됨`;
-    }
-
-    function getLocalAppsEnriched() {
+    // 앱 데이터 조회
+    function getAppsList() {
       const store = getLocalStore();
       return store.apps.map(app => {
         const refs = store.referrals.filter(r => r.app_id === app.id);
@@ -378,9 +464,84 @@
       });
     }
 
+    // 그리드 갱신 (검색어 + 카테고리 필터 동시 적용)
+    function refreshGrid() {
+      let apps = getAppsList();
+
+      // 1. 카테고리 필터
+      if (currentCategory !== '전체') {
+        apps = apps.filter(a => a.category.includes(currentCategory));
+      }
+
+      // 2. 검색어 필터
+      if (currentSearchQuery) {
+        apps = searchAppsByQuery(apps, currentSearchQuery);
+      }
+
+      renderAppsGrid(apps);
+      document.getElementById('appsCountLabel').textContent = `${apps.length}개 서비스 표시 중`;
+    }
+
+    // 검색 알고리즘 (초성, 음절, 별칭 완벽 지원)
+    function searchAppsByQuery(list, q) {
+      const query = q.trim().toLowerCase();
+      if (!query) return list;
+
+      const scored = [];
+      list.forEach(app => {
+        let score = 0;
+        const ko = app.name_ko.toLowerCase();
+        const en = app.name_en.toLowerCase();
+        const chosung = extractChosung(app.name_ko);
+        const aliases = (app.aliases || []).map(a => a.toLowerCase());
+        const aliasesChosung = (app.aliases || []).map(a => extractChosung(a));
+
+        if (ko === query || en === query) score += 200;
+        else if (ko.startsWith(query) || en.startsWith(query)) score += 120;
+        else if (ko.includes(query) || en.includes(query)) score += 60;
+
+        aliases.forEach(a => {
+          if (a === query) score += 180;
+          else if (a.startsWith(query)) score += 100;
+          else if (a.includes(query)) score += 50;
+        });
+
+        if (chosung === query) score += 150;
+        else if (chosung.startsWith(query)) score += 90;
+        else if (chosung.includes(query)) score += 40;
+
+        aliasesChosung.forEach(ac => {
+          if (ac === query) score += 140;
+          else if (ac.startsWith(query)) score += 80;
+        });
+
+        if (app.category.toLowerCase().includes(query)) score += 20;
+
+        if (score > 0) scored.push({ score, app });
+      });
+
+      scored.sort((a, b) => b.score - a.score);
+      return scored.map(s => s.app);
+    }
+
+    // 그리드 렌더링
     function renderAppsGrid(apps) {
       const container = document.getElementById('appsGrid');
       container.innerHTML = '';
+
+      if (apps.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-12 text-center bg-white rounded-2xl border border-dashed border-slate-300 p-6">
+            <div class="text-4xl text-slate-300 mb-2"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <p class="text-slate-700 font-bold">'${currentSearchQuery}' 관련 앱을 찾을 수 없습니다.</p>
+            <p class="text-xs text-slate-500 mt-1 mb-4">원하는 서비스가 없다면 직접 첫 번째로 등록해 보세요!</p>
+            <button onclick="openNewAppModal('${currentSearchQuery}')" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow transition">
+              <i class="fa-solid fa-plus mr-1"></i>'${currentSearchQuery}' 앱 직접 등록하기
+            </button>
+          </div>
+        `;
+        return;
+      }
 
       apps.forEach(app => {
         const card = document.createElement('div');
@@ -395,13 +556,15 @@
               </div>
               <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">${app.category}</span>
             </div>
-            <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition">${app.name_ko} <span class="text-xs text-slate-400 font-normal">(${app.name_en})</span></h3>
+            <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition">
+              ${app.name_ko} <span class="text-xs text-slate-400 font-normal">(${app.name_en})</span>
+            </h3>
             <p class="text-xs text-slate-500 mt-1 line-clamp-1">${app.description || '추천인 혜택 확인하기'}</p>
           </div>
           <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-            <span class="text-slate-400">대기 중 <strong class="text-slate-700">${app.total_codes}</strong>개</span>
+            <span class="text-slate-400">대기 중 <strong class="text-slate-700">${app.total_codes || 0}</strong>개</span>
             <span class="font-bold text-indigo-600 group-hover:translate-x-1 transition inline-flex items-center">
-              코드 확인 <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+              코드 복사 <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
             </span>
           </div>
         `;
@@ -409,45 +572,50 @@
       });
     }
 
+    // 검색어 입력 핸들링 (드롭다운 + 그리드 동시 갱신)
     function handleSearchInput(e) {
       const query = e.target.value.trim();
+      currentSearchQuery = query;
       const clearBtn = document.getElementById('clearSearchBtn');
       clearBtn.classList.toggle('hidden', query.length === 0);
 
       clearTimeout(searchDebounce);
-      searchDebounce = setTimeout(async () => {
+      searchDebounce = setTimeout(() => {
+        // 1. 메인 그리드 실시간 필터링
+        refreshGrid();
+
+        // 2. 자동완성 드롭다운 갱신
         if (!query) {
           closeDropdown();
           return;
         }
-        let results = [];
-        if (isServerMode) {
-          try {
-            const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
-            results = await res.json();
-          } catch(e) { results = searchLocal(query); }
-        } else {
-          results = searchLocal(query);
+        const matches = searchAppsByQuery(getAppsList(), query).slice(0, 8);
+        renderDropdown(matches, query);
+      }, 50);
+    }
+
+    function handleSearchKeydown(e) {
+      if (e.key === 'Enter') {
+        const matches = searchAppsByQuery(getAppsList(), currentSearchQuery);
+        if (matches.length > 0) {
+          selectApp(matches[0].id);
+          closeDropdown();
         }
-        renderDropdown(results, query);
-      }, 100);
+      }
     }
 
-    function searchLocal(q) {
-      const query = q.toLowerCase();
-      const all = getLocalAppsEnriched();
-      return all.filter(app => {
-        const ko = app.name_ko.toLowerCase();
-        const en = app.name_en.toLowerCase();
-        const chosung = extractChosung(app.name_ko);
-        return ko.includes(query) || en.includes(query) || chosung.includes(query);
-      }).slice(0, 8);
-    }
-
+    // 드롭다운 렌더링
     function renderDropdown(items, query) {
       const dropdown = document.getElementById('autocompleteDropdown');
       if (items.length === 0) {
-        dropdown.innerHTML = `<div class="p-4 text-center text-sm text-slate-500">'<strong>${query}</strong>' 에 일치하는 서비스가 없습니다.</div>`;
+        dropdown.innerHTML = `
+          <div class="p-4 text-center text-xs text-slate-500">
+            '<strong>${query}</strong>' 에 일치하는 앱이 없습니다.
+            <button onclick="openNewAppModal('${query}')" class="block mx-auto mt-2 text-indigo-600 font-bold hover:underline">
+              + 새 앱으로 등록하기
+            </button>
+          </div>
+        `;
         dropdown.classList.remove('hidden');
         return;
       }
@@ -487,8 +655,10 @@
     function clearSearch() {
       const input = document.getElementById('searchInput');
       input.value = '';
+      currentSearchQuery = '';
       document.getElementById('clearSearchBtn').classList.add('hidden');
       closeDropdown();
+      refreshGrid();
       input.focus();
     }
 
@@ -499,39 +669,29 @@
       input.focus();
     }
 
+    function filterCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.category-tab').forEach(tab => {
+        if (tab.getAttribute('data-category') === cat) {
+          tab.className = "category-tab active px-3 py-1.5 rounded-full font-bold bg-indigo-600 text-white transition shadow-sm";
+        } else {
+          tab.className = "category-tab px-3 py-1.5 rounded-full font-semibold bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition";
+        }
+      });
+      refreshGrid();
+    }
+
+    // 앱 선택 및 상세 로드
     async function selectApp(appId) {
       currentAppId = appId;
       closeDropdown();
       
-      let data = null;
-      if (isServerMode) {
-        try {
-          const res = await fetch(`/api/apps/${appId}`);
-          if (res.ok) data = await res.json();
-        } catch(e){}
-      }
-      if (!data) {
-        data = getLocalAppDetail(appId);
-      }
-
-      if (!data) {
+      const store = getLocalStore();
+      const app = store.apps.find(a => a.id === appId);
+      if (!app) {
         showToast('오류', '앱 정보를 찾을 수 없습니다.', 'error');
         return;
       }
-
-      renderAppDetail(data);
-
-      const detailSection = document.getElementById('appDetailSection');
-      detailSection.classList.remove('hidden');
-      detailSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-      history.pushState(null, '', `?app=${appId}`);
-    }
-
-    function getLocalAppDetail(appId) {
-      const store = getLocalStore();
-      const app = store.apps.find(a => a.id === appId);
-      if (!app) return null;
 
       const refs = store.referrals.filter(r => r.app_id === appId);
       const top = refs[0] || null;
@@ -542,12 +702,20 @@
         masked_code: r.code.length > 4 ? r.code.slice(0, 4) + '****' : '****'
       }));
 
-      return {
+      const data = {
         app,
         current_top: top ? { ...top, queue_order: 1 } : null,
         queue_length: refs.length,
         waiting_list: waiting
       };
+
+      renderAppDetail(data);
+
+      const detailSection = document.getElementById('appDetailSection');
+      detailSection.classList.remove('hidden');
+      detailSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      history.pushState(null, '', `?app=${appId}`);
     }
 
     function renderAppDetail(data) {
@@ -612,11 +780,11 @@
       }
     }
 
+    // 1순위 코드 복사
     async function copyTopCode() {
       if (!currentAppId || !currentTopCodeData) return;
       const codeToCopy = currentTopCodeData.code;
 
-      // 클립보드 복사
       try {
         await navigator.clipboard.writeText(codeToCopy);
       } catch (err) {
@@ -628,24 +796,7 @@
         document.body.removeChild(ta);
       }
 
-      if (isServerMode) {
-        try {
-          const res = await fetch(`/api/apps/${currentAppId}/copy`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code_id: currentTopCodeData.id })
-          });
-          const result = await res.json();
-          if (res.ok) {
-            showToast('복사 성공!', `[${codeToCopy}] 복사 완료! 다음 순번으로 바통 터치되었습니다.`, 'success');
-            selectApp(currentAppId);
-            loadAllApps();
-            return;
-          }
-        } catch(e){}
-      }
-
-      // 로컬 회전 (Baton Touch)
+      // 회전 큐 바통 터치
       const store = getLocalStore();
       const idx = store.referrals.findIndex(r => r.id === currentTopCodeData.id);
       if (idx !== -1) {
@@ -657,9 +808,10 @@
 
       showToast('복사 성공!', `[${codeToCopy}] 복사 완료! 다음 순번으로 바통 터치되었습니다.`, 'success');
       selectApp(currentAppId);
-      loadAllApps();
+      refreshGrid();
     }
 
+    // 내 코드 등록
     async function handleRegisterCode(e) {
       e.preventDefault();
       if (!currentAppId) return;
@@ -671,29 +823,6 @@
 
       if (!code || !nickname) return;
 
-      if (isServerMode) {
-        try {
-          const res = await fetch(`/api/apps/${currentAppId}/register`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code, nickname })
-          });
-          const result = await res.json();
-          if (res.ok) {
-            showToast('등록 완료!', result.message, 'success');
-            codeInput.value = '';
-            nickInput.value = '';
-            selectApp(currentAppId);
-            loadAllApps();
-            return;
-          } else {
-            showToast('등록 실패', result.message, 'error');
-            return;
-          }
-        } catch(e){}
-      }
-
-      // 로컬 등록
       const store = getLocalStore();
       const existing = store.referrals.find(r => r.app_id === currentAppId && r.code === code);
       if (existing) {
@@ -716,7 +845,60 @@
       codeInput.value = '';
       nickInput.value = '';
       selectApp(currentAppId);
-      loadAllApps();
+      refreshGrid();
+    }
+
+    // 신규 앱 추가 모달
+    function openNewAppModal(prefillName = '') {
+      document.getElementById('modalAppNameKo').value = prefillName;
+      document.getElementById('modalAppNameEn').value = '';
+      document.getElementById('modalAppDesc').value = '';
+      document.getElementById('modalAppUrl').value = '';
+      document.getElementById('newAppModal').classList.remove('hidden');
+    }
+
+    function closeNewAppModal() {
+      document.getElementById('newAppModal').classList.add('hidden');
+    }
+
+    function handleCreateNewApp(e) {
+      e.preventDefault();
+      const nameKo = document.getElementById('modalAppNameKo').value.trim();
+      const nameEn = document.getElementById('modalAppNameEn').value.trim() || nameKo;
+      const category = document.getElementById('modalAppCategory').value;
+      const desc = document.getElementById('modalAppDesc').value.trim();
+      const url = document.getElementById('modalAppUrl').value.trim();
+
+      if (!nameKo) return;
+
+      const store = getLocalStore();
+      if (store.apps.some(a => a.name_ko.toLowerCase() === nameKo.toLowerCase())) {
+        showToast('등록 실패', '이미 존재하는 앱입니다.', 'error');
+        return;
+      }
+
+      const newId = `app_${Date.now()}`;
+      const colors = ["#4f46e5", "#0064FF", "#03C75A", "#FF4747", "#FF6F0F", "#5F0080", "#2AC1BC", "#FA0050"];
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+      const newApp = {
+        id: newId,
+        name_ko: nameKo,
+        name_en: nameEn,
+        aliases: [nameKo, nameEn],
+        category: category,
+        description: desc || `${nameKo} 회원가입 및 추천인 혜택`,
+        app_url: url || '#',
+        icon_color: randomColor
+      };
+
+      store.apps.unshift(newApp);
+      saveLocalStore();
+
+      closeNewAppModal();
+      showToast('앱 등록 완료!', `'${nameKo}' 앱이 등록되었습니다. 추천코드를 등록해 보세요!`, 'success');
+      refreshGrid();
+      selectApp(newId);
     }
 
     function resetToHome() {
