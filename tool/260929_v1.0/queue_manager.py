@@ -107,16 +107,59 @@ class QueueManager:
         with self.lock:
             now = datetime.now()
 
-            # 1. 어뷰징 방지: IP당 3초 내 연속 복사 차단
-            if client_ip in self.ip_last_copy_time:
-                diff = (now - self.ip_last_copy_time[client_ip]).total_seconds()
-                if diff < 3:
+            # 1. 어뷰징 방지 및 제재 상태 추적
+            if not hasattr(self, "ip_abuse_tracker"):
+                self.ip_abuse_tracker = {}
+
+            tracker = self.ip_abuse_tracker.setdefault(client_ip, {
+                "last_click": None,
+                "warning_count": 0,
+                "locked_until": None,
+                "strike_count": 0
+            })
+
+            # (1) 현재 차단/잠금 상태 확인
+            if tracker["locked_until"] and tracker["locked_until"] > now:
+                remaining_sec = int((tracker["locked_until"] - now).total_seconds())
+                minutes, seconds = divmod(remaining_sec, 60)
+                return {
+                    "success": False,
+                    "error": "LOCKED",
+                    "remaining_seconds": remaining_sec,
+                    "message": f"🚨 비정상적인 반복 복사 시도로 제재되었습니다. ({minutes}분 {seconds}초 후 해제)"
+                }
+
+            # (2) 15초 내 반복 클릭 감지
+            if tracker["last_click"]:
+                delta = (now - tracker["last_click"]).total_seconds()
+                if delta < 15:
+                    tracker["warning_count"] += 1
+                    # 3회 이상 연속 위반 시 5분 일시 차단
+                    if tracker["warning_count"] >= 3:
+                        tracker["strike_count"] += 1
+                        lock_minutes = 5 if tracker["strike_count"] < 3 else 1440  # 3회 누적 시 24시간 차단
+                        tracker["locked_until"] = now + timedelta(minutes=lock_minutes)
+                        tracker["warning_count"] = 0
+                        return {
+                            "success": False,
+                            "error": "LOCKED",
+                            "remaining_seconds": lock_minutes * 60,
+                            "message": f"🚨 반복적인 부정 복사 행위가 감지되어 {lock_minutes}분 동안 복사가 전면 차단되었습니다!"
+                        }
+                    
+                    wait_sec = int(15 - delta) + 1
                     return {
                         "success": False,
                         "error": "RATE_LIMIT",
-                        "message": f"잠시 후 다시 시도해 주세요. ({int(3 - diff) + 1}초 대기)"
+                        "wait_seconds": wait_sec,
+                        "warning_count": tracker["warning_count"],
+                        "message": f"⚠️ 너무 빠르게 누르셨습니다. {wait_sec}초 후 다시 시도해 주세요. (경고 {tracker['warning_count']}/3회)"
                     }
-            self.ip_last_copy_time[client_ip] = now
+                else:
+                    # 정상적인 시간 간격이면 경고 카운트 리셋
+                    tracker["warning_count"] = 0
+
+            tracker["last_click"] = now
 
             # 2. 해당 앱의 큐 추출
             app_refs = [r for r in self.referrals if r["app_id"] == app_id]

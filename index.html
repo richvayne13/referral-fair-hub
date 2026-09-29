@@ -739,8 +739,7 @@
         document.getElementById('topReferralCode').textContent = top.code;
         document.getElementById('topNickname').textContent = top.nickname;
         document.getElementById('topCopyCount').textContent = `${top.copy_count || 0}회`;
-        document.getElementById('copyBtn').disabled = false;
-        document.getElementById('copyBtn').classList.remove('opacity-50', 'cursor-not-allowed');
+        checkPenaltyStatus();
       } else {
         currentTopCodeData = null;
         document.getElementById('topReferralCode').textContent = "등록된 코드 없음";
@@ -780,9 +779,113 @@
       }
     }
 
-    // 1순위 코드 복사
+    // 어뷰징 방지 및 제재 매니저 (Anti-Abuse & Penalty System)
+    const PENALTY_KEY = 'referral_abuse_penalty_v1';
+    function getPenaltyState() {
+      const saved = localStorage.getItem(PENALTY_KEY);
+      if (saved) {
+        try { return JSON.parse(saved); } catch(e){}
+      }
+      return {
+        lastCopyTime: 0,
+        warningCount: 0,
+        lockedUntil: 0,
+        strikeCount: 0
+      };
+    }
+
+    function savePenaltyState(state) {
+      localStorage.setItem(PENALTY_KEY, JSON.stringify(state));
+    }
+
+    let penaltyTimerInterval = null;
+
+    function checkPenaltyStatus() {
+      const copyBtn = document.getElementById('copyBtn');
+      if (!copyBtn) return true;
+
+      const state = getPenaltyState();
+      const now = Date.now();
+
+      // (1) 잠금/차단 제재 상태 확인
+      if (state.lockedUntil && state.lockedUntil > now) {
+        const remainingMs = state.lockedUntil - now;
+        const totalSec = Math.ceil(remainingMs / 1000);
+        const m = Math.floor(totalSec / 60);
+        const s = totalSec % 60;
+        const timeStr = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+
+        copyBtn.disabled = true;
+        copyBtn.className = "w-full md:w-auto px-8 py-4 bg-rose-600 text-white rounded-xl font-extrabold text-sm shadow cursor-not-allowed flex items-center justify-center space-x-2";
+        copyBtn.innerHTML = `<i class="fa-solid fa-ban text-lg animate-pulse"></i><span>🚨 반복 복사 제재 중 (${timeStr})</span>`;
+
+        if (!penaltyTimerInterval) {
+          penaltyTimerInterval = setInterval(() => {
+            checkPenaltyStatus();
+          }, 1000);
+        }
+        return false;
+      } else {
+        if (penaltyTimerInterval) {
+          clearInterval(penaltyTimerInterval);
+          penaltyTimerInterval = null;
+        }
+
+        // 제재 해제 시 정상 버튼 복구
+        if (currentTopCodeData) {
+          copyBtn.disabled = false;
+          copyBtn.className = "w-full md:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white rounded-xl font-extrabold text-base shadow-lg hover:shadow-indigo-500/30 transition transform active:scale-95 flex items-center justify-center space-x-2";
+          copyBtn.innerHTML = `<i class="fa-regular fa-copy text-lg"></i><span>추천인 코드 복사하기</span>`;
+        }
+        return true;
+      }
+    }
+
+    // 1순위 코드 복사 (강력한 3단계 제재 포함)
     async function copyTopCode() {
       if (!currentAppId || !currentTopCodeData) return;
+
+      const state = getPenaltyState();
+      const now = Date.now();
+
+      // 1. 현재 차단/제재 상태인지 확인
+      if (state.lockedUntil && state.lockedUntil > now) {
+        showToast('제재 적용 중', '비정상적인 반복 복사로 인해 복사가 일시 제한되었습니다.', 'error');
+        checkPenaltyStatus();
+        return;
+      }
+
+      // 2. 15초 내 반복 클릭(광클) 감지
+      if (state.lastCopyTime) {
+        const deltaSec = (now - state.lastCopyTime) / 1000;
+        if (deltaSec < 15) {
+          state.warningCount = (state.warningCount || 0) + 1;
+
+          // 3회 이상 연속 위반 시 5분 즉시 차단
+          if (state.warningCount >= 3) {
+            state.strikeCount = (state.strikeCount || 0) + 1;
+            const lockMinutes = state.strikeCount >= 3 ? 1440 : 5; // 3회 누적 시 24시간 차단
+            state.lockedUntil = now + lockMinutes * 60 * 1000;
+            state.warningCount = 0;
+            savePenaltyState(state);
+            checkPenaltyStatus();
+
+            showToast('🚨 어뷰징 제재 발동!', `반복적인 부정 복사 행위가 감지되어 ${lockMinutes}분 동안 복사가 전면 차단되었습니다.`, 'error');
+            return;
+          }
+
+          savePenaltyState(state);
+          const waitSec = Math.ceil(15 - deltaSec);
+          showToast('⚠️ 반복 클릭 경고', `너무 빠르게 누르고 있습니다. ${waitSec}초 후 다시 시도해 주세요. (경고 ${state.warningCount}/3회)`, 'error');
+          return;
+        }
+      }
+
+      // 정상 시도: 경고 초기화 및 시간 갱신
+      state.warningCount = 0;
+      state.lastCopyTime = now;
+      savePenaltyState(state);
+
       const codeToCopy = currentTopCodeData.code;
 
       try {
@@ -806,9 +909,30 @@
         saveLocalStore();
       }
 
-      showToast('복사 성공!', `[${codeToCopy}] 복사 완료! 다음 순번으로 바통 터치되었습니다.`, 'success');
+      showToast('복사 성공!', `[${codeToCopy}] 복사 완료! 다음 순번으로 바통 터치되었습니다. (15초 쿨다운 적용)`, 'success');
       selectApp(currentAppId);
       refreshGrid();
+      startSingleClickCooldown(15);
+    }
+
+    function startSingleClickCooldown(seconds) {
+      const copyBtn = document.getElementById('copyBtn');
+      if (!copyBtn) return;
+
+      let remaining = seconds;
+      copyBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-700');
+      copyBtn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+      copyBtn.innerHTML = `<i class="fa-solid fa-check text-lg"></i><span>복사 완료 (${remaining}초 대기)</span>`;
+
+      const interval = setInterval(() => {
+        remaining -= 1;
+        if (remaining <= 0) {
+          clearInterval(interval);
+          checkPenaltyStatus();
+        } else {
+          copyBtn.innerHTML = `<i class="fa-solid fa-check text-lg"></i><span>복사 완료 (${remaining}초 대기)</span>`;
+        }
+      }, 1000);
     }
 
     // 내 코드 등록
